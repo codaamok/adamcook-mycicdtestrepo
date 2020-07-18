@@ -14,6 +14,9 @@ jobs:
     - name: Install InvokeBuild module
       run: Install-Module InvokeBuild -ErrorAction Stop
       shell: pwsh
+    - name: Import InvokeBuild module
+      run: Import-Module InvokeBuild -ErrorAction Stop
+      shell: pwsh
     - name: Invoke-Build
       run: Invoke-Build -ModuleName "adamcook-mycicdtestrepo"
       shell: pwsh
