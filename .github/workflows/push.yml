@@ -11,12 +11,9 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
-    - name: Install Pester Module
-      run: .\.github\workflows\Install-PesterModule.ps1
-      shell: pwsh
-    - name: Run Pester Tests
+    - name: Publish module
       env:
-        SLACK_TOKEN: ${{secrets.SLACK_TOKEN}}
-        SLACK_CHANNEL: ${{secrets.SLACK_CHANNEL}}
-      run: .\.github\workflows\Invoke-PesterTests.ps1
+        PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
+      run: Publish-Module -Path .\adamcook-mycicdtestrepo -NuGetApiKey $env:PSGALLERY_API_KEY -ErrorAction Stop -Force
       shell: pwsh
+      
