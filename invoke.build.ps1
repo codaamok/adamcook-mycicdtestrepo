@@ -14,28 +14,28 @@ task clean {
 
 # Synopsis: Creates a single .psm1 file of all private and public functions of the to-be-published module
 task CreateSinglePSM1 {
-    New-Item -Path $BuildRoot\build\$ModuleName.psm1 -ItemType "File" -Force
+    New-Item -Path $BuildRoot\build\$ModuleName\$ModuleName.psm1 -ItemType "File" -Force
 
     foreach ($FunctionType in "Private","Public") {
-        '#region {0} functions' -f $FunctionType | Add-Content -Path $BuildRoot\build\$ModuleName.psm1
+        '#region {0} functions' -f $FunctionType | Add-Content -Path $BuildRoot\build\$ModuleName\$ModuleName.psm1
         $Files = @(Get-ChildItem $BuildRoot\$ModuleName\$FunctionType -Filter *.ps1)
         $Files | ForEach-Object {
-            Get-Content $_ | Add-Content -Path $BuildRoot\build\$ModuleName.psm1
+            Get-Content $_ | Add-Content -Path $BuildRoot\build\$ModuleName\$ModuleName.psm1
             if ($Files.IndexOf($_) -ne ($Files.Count - 1)) {
-                Write-Output "" | Add-Content -Path $BuildRoot\build\$ModuleName.psm1
+                Write-Output "" | Add-Content -Path $BuildRoot\build\$ModuleName\$ModuleName.psm1
             }
         }
-        '#endregion {0} functions' -f $FunctionType | Add-Content -Path $BuildRoot\build\$ModuleName.psm1
-        Write-Output "" | Add-Content -Path $BuildRoot\build\$ModuleName.psm1
+        '#endregion {0} functions' -f $FunctionType | Add-Content -Path $BuildRoot\build\$ModuleName\$ModuleName.psm1
+        Write-Output "" | Add-Content -Path $BuildRoot\build\$ModuleName\$ModuleName.psm1
     }
 }
 
 # Synopsis: Copy and update the manifest
 task UpdateManifest {
-    Copy-Item -Path $BuildRoot\$ModuleName\$ModuleName.psd1 -Destination $BuildRoot\build
+    Copy-Item -Path $BuildRoot\$ModuleName\$ModuleName.psd1 -Destination $BuildRoot\build\$ModuleName
 
     $UpdateModuleManifestSplat = @{
-        Path = '{0}\build\{1}.psd1' -f $BuildRoot, $ModuleName
+        Path = '{0}\build\{1}\{2}.psd1' -f $BuildRoot, $ModuleName, $ModuleName
     }
 
     # Only ever increments the minor, I wonder how I could handle major. Maybe just trigger workflow based on releases and use the version from that instead?
