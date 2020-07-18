@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install InvokeBuild module
-      run: Install-Module InvokeBuild -ErrorAction Stop
+      run: Install-Module InvokeBuild -ErrorAction Stop; Start-Sleep -Seconds 10
       shell: pwsh
     - name: Import InvokeBuild module
       run: Import-Module InvokeBuild -ErrorAction Stop
