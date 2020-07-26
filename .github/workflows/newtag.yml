@@ -7,7 +7,7 @@ on:
 
 jobs:
   job1:
-    name: Publish to PSGallery
+    name: Say hello to the world :-)
     runs-on: ubuntu-18.04
     steps:
     - name: Invoke-Build
