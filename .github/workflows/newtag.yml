@@ -1,0 +1,15 @@
+name: "Publish new version to PowerShell Gallery when something is pushed to the master branch"
+
+on: 
+  push:
+    tags:
+      - '*'
+
+jobs:
+  publish-to-psgallery:
+    name: Publish to PSGallery
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Invoke-Build
+      run: Write-Host "Hello world!"
+      shell: pwsh
