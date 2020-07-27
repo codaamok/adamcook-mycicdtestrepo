@@ -1,12 +1,7 @@
-name: "Publish new version to PowerShell Gallery when something is pushed to the master branch"
+name: "Empty CHANGELOG.md and commit to master"
 
 on: 
   push:
-    paths-ignore:
-      .github/workflows/**
-      build/**
-      '*.md'
-
     branches:
       - master
 
