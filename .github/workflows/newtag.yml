@@ -2,6 +2,8 @@ name: "Execute me when a new tag is pushed"
 
 on: 
   push:
+    paths-ignore:
+      .github/workflows/**
     tags:
       - '*'
 
@@ -10,6 +12,6 @@ jobs:
     name: Say hello to the world :-)
     runs-on: ubuntu-18.04
     steps:
-    - name: Invoke-Build
+    - name: Print 'hello world!'
       run: Write-Host "Hello world!"
       shell: pwsh
