@@ -12,8 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Empty contents of CHNAGELOG.md
-      run: | 
-      "" | Set-Content -Path ".\CHANGELOG.md" -Force
+      run: "" \| Set-Content -Path ".\CHANGELOG.md" -Force
       shell: pwsh
     - name: Commit chnages
       env:
