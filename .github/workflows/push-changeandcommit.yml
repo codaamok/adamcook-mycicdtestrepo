@@ -7,21 +7,10 @@ on:
 
 jobs:
   publish-to-psgallery:
-    name: Publish to PSGallery
+    name: Some job name here
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
-    - name: Install InvokeBuild module
-      run: Install-Module InvokeBuild -ErrorAction Stop -Force
-      shell: pwsh
-    - name: Import InvokeBuild module
-      run: Import-Module InvokeBuild -ErrorAction Stop
-      shell: pwsh
-    - name: Invoke-Build
-      run: Invoke-Build -ModuleName "adamcook-mycicdtestrepo"
-      shell: pwsh
-    - name: Publish module
-      env:
-        PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
-      run: Publish-Module -Path .\build\*\ -NuGetApiKey $env:PSGALLERY_API_KEY -ErrorAction Stop -Force
+    - name: Say hello to the world"
+      run: Write-Host "Hello world"
       shell: pwsh

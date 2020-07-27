@@ -3,9 +3,9 @@ name: "Publish new version to PowerShell Gallery when something is pushed to the
 on: 
   push:
     paths-ignore:
-      .github/workflows/**
-      build/**
-      '*.md'
+      - .github/workflows/**
+      - build/**
+      - '*.md'
 
     branches:
       - master
