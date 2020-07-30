@@ -30,3 +30,7 @@ jobs:
         PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
       run: Publish-Module -Path .\build\*\ -NuGetApiKey $env:PSGALLERY_API_KEY -ErrorAction Stop -Force
       shell: pwsh
+    - name: variable sharing test
+      run: $variable1 = "Hello world"
+      run: Write-Host ("The value of variable1 is {0}" -f $variable1)
+      shell: pwsh
