@@ -33,5 +33,6 @@ jobs:
     - name: variable sharing test
       run: $variable1 = "Hello world"
       shell: pwsh
+    - name: variable sharing test
       run: Write-Host ("The value of variable1 is {0}" -f $variable1)
       shell: pwsh
