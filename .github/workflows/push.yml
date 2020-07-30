@@ -20,4 +20,5 @@ jobs:
         Write-Output "Hello world"
         Write-Output "Hello again, is it me..."
         Write-Output "You are looking for"
+        Write-Output $env:GITHUB_REPOSITORY
       shell: pwsh
