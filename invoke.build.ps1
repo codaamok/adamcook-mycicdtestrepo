@@ -1,5 +1,5 @@
 param (
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory)]
     [ValidateNotNullOrEmpty()]
     [String]$ModuleName
 )
