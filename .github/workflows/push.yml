@@ -25,5 +25,5 @@ jobs:
     - name: Step 2
       run: |
         Write-Output "Step 2"
-        Write-Output $Date
+        Write-Output $env:Date
       shell: pwsh
