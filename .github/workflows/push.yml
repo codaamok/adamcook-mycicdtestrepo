@@ -26,3 +26,4 @@ jobs:
       run: |
         Write-Output "Step 2"
         Write-Output $Date
+      shell: pwsh
