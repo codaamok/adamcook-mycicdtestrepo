@@ -43,15 +43,15 @@ jobs:
         }
 
         if ($EmptyUnreleasedChangeLog -eq $true) {
-          throw "Can not deploy with empty changelog"
+          throw "Can not deploy with empty change log"
         }
 
         Write-Output ("::set-env name=changelog::{0}" -f ($ChangeLog | ConvertTo-Json -Depth 3))
-        Write-Output ("::set-env name=ReleaseNotes::{0}" -f ([String]::Join("\n", $ReleaseNotes)))
+        Write-Output ("::set-env name=ReleaseNotes::{0}" -f ([String]::Join(";;", $ReleaseNotes)))
       shell: pwsh
     - name: Step 2
       run: |
-        Update-ModuleManifest -Path .\adamcook-mycicdtestrepo\adamcook-mycicdtestrepo.psd1 -ReleaseNotes $env:ReleaseNotes
+        Update-ModuleManifest -Path .\adamcook-mycicdtestrepo\adamcook-mycicdtestrepo.psd1 -ReleaseNotes ($env:ReleaseNotes -split ';;')
       shell: pwsh
     - name: Upload math result for job 1
       uses: actions/upload-artifact@v2
