@@ -47,10 +47,11 @@ jobs:
         }
 
         Write-Output ("::set-env name=changelog::{0}" -f ($ChangeLog | ConvertTo-Json -Depth 3))
-        Write-Output ("::set-env name=releasenotes::{0}" -f $ReleaseNotes)
+        Write-Output ("::set-env name=ReleaseNotes::{0}" -f $ReleaseNotes)
       shell: pwsh
     - name: Step 2
       run: |
+        Write-Output $env:ReleaseNotes
         Update-ModuleManifest -Path .\adamcook-mycicdtestrepo\adamcook-mycicdtestrepo.psd1 -ReleaseNotes $env:releasenotes
       shell: pwsh
     - name: Upload math result for job 1
