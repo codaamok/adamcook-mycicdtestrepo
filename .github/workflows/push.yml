@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - name: Get module manifest contents
-      runs: |
+      run: |
         Get-Content -Path .\adamcook-mycicdtestrepo\adamcook-mycicdtestrepo.psd1
       shell: pwsh
       
