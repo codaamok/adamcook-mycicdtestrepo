@@ -24,6 +24,8 @@ jobs:
       shell: pwsh
     - name: Step 1
       run: |
+        Write-Output $Pwd.Path
+        ls
         Install-Module -Name "ChangelogManagement" -Scope "CurrentUser" -Force -ErrorAction "Stop"
         $ChangeLog = Get-ChangeLogData -Path .\$env:GH_PROJECTNAME\CHANGELOG.md -ErrorAction "Stop"
 
