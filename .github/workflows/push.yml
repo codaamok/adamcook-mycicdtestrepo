@@ -31,7 +31,7 @@ jobs:
       run: |
         Write-Output "Step 2"
         Write-Output $env:Date
-        Write-Output $Obj
-        Write-Output $Obj.Property
-        Write-Output $Obj.AnotherProp
+        Write-Output $env:Obj
+        Write-Output $env:Obj.Property
+        Write-Output $env:Obj.AnotherProp
       shell: pwsh
