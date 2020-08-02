@@ -57,4 +57,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: manifest.psd1
-        path: $GH_PROJECTNAME\adamcook-mycicdtestrepo.psd1
+        path: .\adamcook-mycicdtestrepo\adamcook-mycicdtestrepo.psd1
