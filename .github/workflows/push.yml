@@ -34,4 +34,5 @@ jobs:
         Write-Output $env:Obj
         Write-Output ($env:Obj).Property
         Write-Output ($env:Obj).AnotherProp
+        Write-Output ($env:Obj).GetType().Name
       shell: pwsh
