@@ -69,6 +69,6 @@ jobs:
     - name: Download a Build Artifact
       uses: actions/download-artifact@v2
     - name: Is artifact a directory or file? 
-      run: (Get-Item Path .\repo).PSIsContainer
+      run: (Get-Item -Path .\repo).PSIsContainer
       shell: pwsh
       
