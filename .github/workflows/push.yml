@@ -68,7 +68,7 @@ jobs:
     steps:
     - name: Download a Build Artifact
       uses: actions/download-artifact@v2
-    - name: List contents of downloaded artifact
-      run: Get-ChildItem -Path .\repo
+    - name: Get contents of file in downloaded artifact
+      run: Get-Content -Path .\repo\adamcook-mycicdtestrepo\adamcook-mycicdtestrepo.psd1
       shell: pwsh
       
