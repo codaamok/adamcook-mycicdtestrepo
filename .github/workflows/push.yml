@@ -52,9 +52,9 @@ jobs:
     - name: Step 2
       run: |
         Update-ModuleManifest -Path $env:GH_PROJECTNAME\adamcook-mycicdtestrepo.psd1 -ReleaseNotes $env:releasenotes
+      shell: pwsh
     - name: Upload math result for job 1
       uses: actions/upload-artifact@v2
       with:
         name: manifest.psd1
         path: $GH_PROJECTNAME\adamcook-mycicdtestrepo.psd1
-      shell: pwsh
