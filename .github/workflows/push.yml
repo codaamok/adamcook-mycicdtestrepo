@@ -53,6 +53,9 @@ jobs:
       run: |
         Update-ModuleManifest -Path .\adamcook-mycicdtestrepo\adamcook-mycicdtestrepo.psd1 -ReleaseNotes ($env:ReleaseNotes -split ';;')
       shell: pwsh
+    - name: List directory
+      run: ls
+      shell: pwsh
     - name: Upload math result for job 1
       uses: actions/upload-artifact@v2
       with:
@@ -65,6 +68,6 @@ jobs:
     steps:
     - name: Get module manifest contents
       run: |
-        Get-Content -Path .\adamcook-mycicdtestrepo\adamcook-mycicdtestrepo.psd1
+        ls
       shell: pwsh
       
