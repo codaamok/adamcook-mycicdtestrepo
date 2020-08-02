@@ -24,9 +24,8 @@ jobs:
       shell: pwsh
     - name: Step 1
       run: |
-        Write-Output $pwd
         Install-Module -Name "ChangelogManagement" -Scope "CurrentUser" -Force -ErrorAction "Stop"
-        $ChangeLog = Get-ChangeLogData -Path $env:GH_PROJECTNAME\CHANGELOG.md -ErrorAction "Stop"
+        $ChangeLog = Get-ChangeLogData -Path .\$env:GH_PROJECTNAME\CHANGELOG.md -ErrorAction "Stop"
 
         $EmptyUnreleasedChangeLog = $true
         $ReleaseNotes = foreach ($Property in $ChangeLog.Unreleased.Data.PSObject.Properties.Name) {
