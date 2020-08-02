@@ -68,7 +68,7 @@ jobs:
     steps:
     - name: Download a Build Artifact
       uses: actions/download-artifact@v2
-    - name: List directory
-      run: ls
+    - name: Is artifact a directory or file? 
+      run: (Get-Item Path .\repo).PSIsContainer
       shell: pwsh
       
