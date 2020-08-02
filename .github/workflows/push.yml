@@ -59,15 +59,16 @@ jobs:
     - name: Upload math result for job 1
       uses: actions/upload-artifact@v2
       with:
-        name: modulemanifest
-        path: ./adamcook-mycicdtestrepo/adamcook-mycicdtestrepo.psd1
+        name: repo
+        path: .
   job2:
     name: Job 2
     runs-on: ubuntu-18.04
     needs: job1
     steps:
-    - name: Get module manifest contents
-      run: |
-        ls
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v2
+    - name: List directory
+      run: ls
       shell: pwsh
       
