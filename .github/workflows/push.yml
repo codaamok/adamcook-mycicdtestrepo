@@ -16,57 +16,32 @@ jobs:
     steps:
     - name: See if zip exists
       run: zip --help
+
     - name: Checkout repository
       uses: actions/checkout@v2.3.1
+
     - name: Set environment variables
       run: |
         $Username, $ProjectName = $env:GITHUB_REPOSITORY -split "/"
         Write-Output "::set-env name=GH_PROJECTNAME::$ProjectName"
         Write-Output "::set-env name=GH_USERNAME::$Username"
       shell: pwsh
-    - name: Step 0
-      run : |
-        Install-Module -Name "ChangelogManagement" -Scope "CurrentUser" -Force -ErrorAction "Stop"
-      shell: pwsh
-    - name: Step 1
-      run: |
-        
-        $ChangeLog = Get-ChangeLogData -Path .\CHANGELOG.md -ErrorAction "Stop"
 
-        $EmptyUnreleasedChangeLog = $true
-        $ReleaseNotes = foreach ($Property in $ChangeLog.Unreleased.Data.PSObject.Properties.Name) {
-          $Data = $ChangeLog.Unreleased.Data.$Property
-
-          if ($Data) {
-            $EmptyUnreleasedChangeLog = $false
-
-            Write-Output $Property
-
-            foreach ($item in $Data) {
-              Write-Output ("- {0}" -f $item)
-            }
-          }
-        }
-
-        if ($EmptyUnreleasedChangeLog -eq $true) {
-          throw "Can not deploy with empty change log"
-        }
-
-        Write-Output ("::set-env name=changelog::{0}" -f ($ChangeLog | ConvertTo-Json -Depth 3))
-        Write-Output ("::set-env name=ReleaseNotes::{0}" -f ([String]::Join(";;", $ReleaseNotes)))
-      shell: pwsh
     - name: Step 2
       run: |
         Update-ModuleManifest -Path .\adamcook-mycicdtestrepo\adamcook-mycicdtestrepo.psd1 -ReleaseNotes ($env:ReleaseNotes -split ';;')
       shell: pwsh
+
     - name: List directory
       run: ls
       shell: pwsh
+
     - name: Upload math result for job 1
       uses: actions/upload-artifact@v2
       with:
         name: repo
         path: .
+
   job2:
     name: Job 2
     runs-on: ubuntu-18.04
@@ -75,14 +50,24 @@ jobs:
     - name: List directory
       run: ls
       shell: pwsh
+
     - name: Download a Build Artifact
       uses: actions/download-artifact@v2
       with:
         name: repo
+        path: downloaded/mycicdtestrepo
+
     - name: List directory
       run: ls 
       shell: pwsh
+
     - name: Get contents of file in downloaded artifact
-      run: Get-Content -Path .\adamcook-mycicdtestrepo\adamcook-mycicdtestrepo.psd1
+      run: Get-Content -Path .\download\adamcook-mycicdtestrepo\adamcook-mycicdtestrepo.psd1
+      shell: pwsh
+
+    - name: Zip directory "downloaded"
+      run: |
+        $ZipFileName = "{0}-1.0.0.zip" -f $env:GH_PROJECTNAME
+        zip -r $ZipFileName ./build/$env:GH_PROJECTNAME
       shell: pwsh
       
