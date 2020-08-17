@@ -26,6 +26,17 @@ jobs:
       with:
         path: folder/${{ env.GH_PROJECTNAME }}
 
+    - name: Create archive of repository
+      run: zip -r ${GH_PROJECTNAME}_1.0.0.zip ./folder/$GH_PROJECTNAME/
+
     - name: List directory recursively
       run: ls -R
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: ${GH_PROJECTNAME}_1.0.0.zip
+
+    
   
