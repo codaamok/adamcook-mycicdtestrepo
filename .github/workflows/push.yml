@@ -27,7 +27,7 @@ jobs:
         path: folder/${{ env.GH_PROJECTNAME }}
 
     - name: Create archive of repository
-      run: zip -r ${GH_PROJECTNAME}_1.0.0.zip ./folder/$GH_PROJECTNAME/*
+      run: zip ${GH_PROJECTNAME}_1.0.0.zip ./folder/$GH_PROJECTNAME/
 
     - name: List directory recursively
       run: ls -R
