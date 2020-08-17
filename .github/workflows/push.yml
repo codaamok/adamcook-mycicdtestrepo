@@ -28,8 +28,8 @@ jobs:
 
     - name: Create archive of repository
       run: |
-        cd folder/$GH_PROJECTNAME
         mkdir donotexist
+        cd folder/$GH_PROJECTNAME
         zip -r ${GITHUB_WORKSPACE}/donotexist/${GH_PROJECTNAME}_1.0.0.zip .
 
     - name: List directory recursively
