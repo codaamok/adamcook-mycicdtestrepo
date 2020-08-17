@@ -36,7 +36,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: my-artifact
-        path: ${GH_PROJECTNAME}_1.0.0.zip
+        path: ${{ env.GH_PROJECTNAME }}_1.0.0.zip
 
     
   
