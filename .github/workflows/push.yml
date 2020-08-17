@@ -21,10 +21,15 @@ jobs:
         $Username, $ProjectName = $env:GITHUB_REPOSITORY -split "/"
         Write-Output "::set-env name=GH_PROJECTNAME::$ProjectName"
         Write-Output "::set-env name=GH_USERNAME::$Username"
+        Write-Output ("Repo is: {0}" -f $env:REPOSITORY)
+      shell: pwsh
+    - name: Step 0
+      run : |
+        Install-Module -Name "ChangelogManagement" -Scope "CurrentUser" -Force -ErrorAction "Stop"
       shell: pwsh
     - name: Step 1
       run: |
-        Install-Module -Name "ChangelogManagement" -Scope "CurrentUser" -Force -ErrorAction "Stop"
+        
         $ChangeLog = Get-ChangeLogData -Path .\CHANGELOG.md -ErrorAction "Stop"
 
         $EmptyUnreleasedChangeLog = $true
@@ -68,6 +73,8 @@ jobs:
     steps:
     - name: Download a Build Artifact
       uses: actions/download-artifact@v2
+      with:
+        name: repo
     - name: Get contents of file in downloaded artifact
       run: Get-Content -Path .\repo\adamcook-mycicdtestrepo\adamcook-mycicdtestrepo.psd1
       shell: pwsh
