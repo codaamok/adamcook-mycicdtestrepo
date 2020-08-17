@@ -21,7 +21,6 @@ jobs:
         $Username, $ProjectName = $env:GITHUB_REPOSITORY -split "/"
         Write-Output "::set-env name=GH_PROJECTNAME::$ProjectName"
         Write-Output "::set-env name=GH_USERNAME::$Username"
-        Write-Output ("Repo is: {0}" -f $env:REPOSITORY)
       shell: pwsh
     - name: Step 0
       run : |
@@ -75,7 +74,10 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: repo
+    - name: List directory
+      run: ls 
+      shell: pwsh
     - name: Get contents of file in downloaded artifact
-      run: Get-Content -Path .\repo\adamcook-mycicdtestrepo\adamcook-mycicdtestrepo.psd1
+      run: Get-Content -Path .\adamcook-mycicdtestrepo\adamcook-mycicdtestrepo.psd1
       shell: pwsh
       
