@@ -80,6 +80,8 @@ jobs:
     - name: List directory
       run: ls 
       shell: pwsh
+    - name: See if zip exists
+      run: zip
     - name: Get contents of file in downloaded artifact
       run: Get-Content -Path .\adamcook-mycicdtestrepo\adamcook-mycicdtestrepo.psd1
       shell: pwsh
