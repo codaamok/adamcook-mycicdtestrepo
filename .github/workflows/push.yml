@@ -33,7 +33,7 @@ jobs:
         zip -r ${GITHUB_WORKSPACE}/somedirectory/${GH_PROJECTNAME}_1.0.0.zip .
 
     - name: Create text file
-      run: echo "Hello world" >> test.txt
+      run: echo "Hello world" >> folder/${GH_PROJECTNAME}/test.txt
 
     - name: Commit and push
-      run: git add test.txt && git commit -m "Added test.txt" && git push
+      run: git add folder/${GH_PROJECTNAME}/test.txt && git commit -m "Added test.txt" && git push
