@@ -31,11 +31,9 @@ jobs:
         mkdir somedirectory
         cd folder/$GH_PROJECTNAME
         zip -r ${GITHUB_WORKSPACE}/somedirectory/${GH_PROJECTNAME}_1.0.0.zip .
-  
-  job2:
-    name: Job 2
-    needs: job1
-    runs-on: ubuntu-latest
-    steps:
-    - name: List directory recursively
-      run: ls -R
+
+    - name: Create text file
+      run: echo "Hello world" >> test.txt
+
+    - name: Commit and push
+      run: git add test.txt && git commit -m "Added test.txt" && git push
