@@ -36,4 +36,4 @@ jobs:
       run: echo "Hello world" >> folder/${GH_PROJECTNAME}/test.txt
 
     - name: Commit and push
-      run: git add folder/${GH_PROJECTNAME}/test.txt && git commit -m "Added test.txt" && git push
+      run: git add * && git commit -m "Added test.txt" && git push
