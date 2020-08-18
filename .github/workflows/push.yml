@@ -31,28 +31,10 @@ jobs:
         mkdir somedirectory
         cd folder/$GH_PROJECTNAME
         zip -r ${GITHUB_WORKSPACE}/somedirectory/${GH_PROJECTNAME}_1.0.0.zip .
-
+  
+  job2:
+    name: Job 2
+    runs-on: ubuntu-latest
+    steps:
     - name: List directory recursively
       run: ls -R
-
-    - name: Create release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: "1.0.0"
-        release_name: Some new release!
-        draft: false
-        prerelease: false
-    - name: Upload Release asset
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ./somedirectory/${{ env.GH_PROJECTNAME }}_1.0.0.zip
-        asset_name: ${{ env.GH_PROJECTNAME }}_1.0.0.zip
-        asset_content_type: application/zip
-  
