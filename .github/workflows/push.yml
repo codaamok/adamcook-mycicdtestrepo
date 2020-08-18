@@ -39,5 +39,8 @@ jobs:
     - name: Create text file
       run: echo "Hello world" >> folder/${GH_PROJECTNAME}/test.txt
 
+    - name: git config
+      run: git config --global user.name "github@cookadam.co.uk" && git config --global user.name "codaamok"
+
     - name: Commit and push
       run: cd folder/${{ env.GH_PROJECTNAME }} && git add * && git commit -m "Added test.txt" && git push
