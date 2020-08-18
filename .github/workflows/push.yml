@@ -12,7 +12,7 @@ on:
 jobs:
   job1:
     name: Job 1
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
     - name: Set environment variables
       run: |
@@ -34,6 +34,7 @@ jobs:
   
   job2:
     name: Job 2
+    needs: job1
     runs-on: ubuntu-latest
     steps:
     - name: List directory recursively
