@@ -13,6 +13,7 @@ jobs:
   job1:
     name: Job 1
     runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'shipit!')"
     steps:
     - name: Set environment variables
       run: |
@@ -20,6 +21,9 @@ jobs:
         Write-Output "::set-env name=GH_PROJECTNAME::$ProjectName"
         Write-Output "::set-env name=GH_USERNAME::$Username"
       shell: pwsh
+    
+    - name: Get environment variables (bash)
+      run: echo $GH_PROJECTNAME && echo $GH_USERNAME
 
     - name: Checkout repository
       uses: actions/checkout@v2.3.1
@@ -36,4 +40,4 @@ jobs:
       run: echo "Hello world" >> folder/${GH_PROJECTNAME}/test.txt
 
     - name: Commit and push
-      run: git add * && git commit -m "Added test.txt" && git push
+      run: cd folder/${{ env.GH_PROJECTNAME }} && git add * && git commit -m "Added test.txt" && git push
