@@ -43,4 +43,4 @@ jobs:
       run: git config --global user.name "github@cookadam.co.uk" && git config --global user.name "codaamok"
 
     - name: Commit and push
-      run: cd folder/${{ env.GH_PROJECTNAME }} && git add * && git commit -m "Added test.txt" && git push
+      run: cd folder/${{ env.GH_PROJECTNAME }} && git add * && git commit -m "Added test.txt" -a && git push
