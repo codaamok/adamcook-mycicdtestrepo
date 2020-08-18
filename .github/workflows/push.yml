@@ -1,4 +1,4 @@
-name: "My testing workflow"
+name: "My testing workflow :-)"
 
 on: 
   push:
@@ -40,7 +40,12 @@ jobs:
       run: echo "Hello world" >> folder/${GH_PROJECTNAME}/test.txt
 
     - name: git config
-      run: git config --global user.name "github@cookadam.co.uk" && git config --global user.name "codaamok"
+      run: |
+        git config --global user.name "github@cookadam.co.uk"
+        git config --global user.name "codaamok"
+        git commit -m "Added test.txt" -a
 
-    - name: Commit and push
-      run: cd folder/${{ env.GH_PROJECTNAME }} && git add * && git commit -m "Added test.txt" -a && git push
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
