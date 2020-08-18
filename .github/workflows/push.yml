@@ -42,8 +42,8 @@ jobs:
     - name: git config
       run: |
         cd folder/$GH_PROJECTNAME
-        git config --global user.name "me@cookadam.co.uk"
-        git config --global user.name "codaamok"
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
         git commit -m "Added test.txt" -a
 
     - name: Push changes
