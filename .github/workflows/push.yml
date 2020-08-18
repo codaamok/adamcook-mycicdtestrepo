@@ -1,4 +1,4 @@
-name: "My testing workflow :-)"
+name: "My testing workflow"
 
 on: 
   push:
