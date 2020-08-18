@@ -50,4 +50,4 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        directory: folder/${{ GH_PROJECTNAME }}
+        directory: folder/${{ env.GH_PROJECTNAME }}
