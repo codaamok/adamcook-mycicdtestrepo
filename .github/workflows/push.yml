@@ -13,7 +13,7 @@ jobs:
   job1:
     name: Job 1
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'shipit!')"
+    if: "contains(github.event.head_commit.message, ':shipit:')"
     steps:
     - name: Set environment variables
       run: |
