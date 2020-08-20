@@ -1,4 +1,4 @@
-name: "Empty CHANGELOG.md and commit to master"
+name: "Example 1"
 
 on: 
   push:
