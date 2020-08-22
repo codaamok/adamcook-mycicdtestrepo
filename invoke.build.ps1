@@ -32,7 +32,7 @@ task GetPSGalleryVersionNumber {
         $Script:PSGalleryModuleInfo = Find-Module -Name $env:GH_PROJECTNAME -ErrorAction "Stop"
     }
     catch {
-        if ($_.Exception.Message -notmatch "No match was for the specified search criteria") {
+        if ($_.Exception.Message -notmatch "No match was found for the specified search criteria") {
             throw $_
         }
     }
