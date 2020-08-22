@@ -38,7 +38,7 @@ jobs:
           )
           Import-Module -Name $Modules -ErrorAction "Stop"
 
-          Invoke-Build -ModuleName $env:GH_PROJECTNAME -ReleaseNotes (Get-Content -Path ./release/releasenotes.txt)
+          Invoke-Build -ModuleName $env:GH_PROJECTNAME
         shell: pwsh
 
       - name: Publish to PowerShell Gallery

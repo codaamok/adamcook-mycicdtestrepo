@@ -3,11 +3,7 @@
 param (
     [Parameter(Mandatory)]
     [ValidateNotNullOrEmpty()]
-    [String]$ModuleName,
-
-    [Parameter(Mandatory)]
-    [ValidateNotNullOrEmpty()]
-    [String[]]$ReleaseNotes
+    [String]$ModuleName
 )
 
 # Synopsis: Initiate the entire build process
@@ -59,7 +55,7 @@ task GetChangelog {
     $ChangeLog = Get-ChangeLogData -Path $BuildRoot\CHANGELOG.md
     $EmptyUnreleasedChangeLog = $true
 
-    $ReleaseNotes = foreach ($Property in $ChangeLog.Unreleased.Data.PSObject.Properties.Name) {
+    $Script:ReleaseNotes = foreach ($Property in $ChangeLog.Unreleased.Data.PSObject.Properties.Name) {
         $Data = $ChangeLog.Unreleased.Data.$Property
 
         if ($Data) {
@@ -73,14 +69,12 @@ task GetChangelog {
         }
     }
 
-    if ($EmptyUnreleasedChangeLog -eq $true -Or $ReleaseNotes.Count -eq 0) {
+    if ($EmptyUnreleasedChangeLog -eq $true -Or $Script:ReleaseNotes.Count -eq 0) {
         throw "Can not deploy with empty Unreleased section in the change log"
     }
 
     Write-Output "Release notes:"
-    Write-Output $ReleaseNotes
-
-    Set-Content -Path $BuildRoot/release/releasenotes.txt -Value $ReleaseNotes
+    Write-Output $Script:ReleaseNotes
 }
 
 # Synopsis: Determine next version to publish by evaluating versions in PowerShell Gallery and in the change log
@@ -241,9 +235,9 @@ task UpdateModuleManifest {
         Path = $Script:ManifestFile
     }
 
-    $UpdateModuleManifestSplat["ModuleVersion"] = $Version
+    $UpdateModuleManifestSplat["ModuleVersion"] = $Script:VersionToPublish
 
-    $UpdateModuleManifestSplat["ReleaseNotes"] = $ReleaseNotes
+    $UpdateModuleManifestSplat["ReleaseNotes"] = $Script:ReleaseNotes
 
     if ($Script:FormatFiles) {
         $UpdateModuleManifestSplat["FormatsToProcess"] = $Script:FormatFiles.Name
