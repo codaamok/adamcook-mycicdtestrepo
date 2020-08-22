@@ -1,4 +1,4 @@
-#Requires -Module "ChnagelogManagement"
+#Requires -Module "ChangelogManagement"
 [CmdletBinding()]
 param (
     [Parameter(Mandatory)]
