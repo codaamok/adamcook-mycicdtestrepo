@@ -229,12 +229,12 @@ task CopyFormatFiles {
 
 # Synopsis: Copy LICENSE file (must exist)
 task CopyLicense {
-    Copy-Item -Path $BuildRoot\LICENSE -Destination $BuildRoot\build\$Script:ModuleName
+    Copy-Item -Path $BuildRoot\LICENSE -Destination $BuildRoot\build\$Script:ModuleName\LICENSE
 }
 
 # Synopsis: Copy module manifest files (must exist)
 task CopyModuleManifest {
-    $Script:ManifestFile = Copy-Item -Path $BuildRoot\$Script:ModuleName\$Script:ModuleName.psd1 -Destination $BuildRoot\build\$Script:ModuleName -PassThru
+    $Script:ManifestFile = Copy-Item -Path $BuildRoot\$Script:ModuleName\$Script:ModuleName.psd1 -Destination $BuildRoot\build\$Script:ModuleName\$Script:ModuleName.psd1 -PassThru
 }
 
 # Synopsis: Copy and update the manifest in build directory. If successfully, replace manifest in the module directory
