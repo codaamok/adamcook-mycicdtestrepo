@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+
+## [1.14.20200823.0] - 2020-08-23
 ### Added
 - Something new
 - Something new
@@ -21,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 - Birth of change log
 
-[Unreleased]: https://github.com/codaamok/adamcook-mycicdtestrepo/compare/1.13.20200823.1..HEAD
+[Unreleased]: https://github.com/codaamok/adamcook-mycicdtestrepo/compare/1.14.20200823.0..HEAD
+[1.14.20200823.0]: https://github.com/codaamok/adamcook-mycicdtestrepo/compare/1.13.20200823.1..1.14.20200823.0
 [1.13.20200823.1]: https://github.com/codaamok/adamcook-mycicdtestrepo/compare/1.12..1.13.20200823.1
 [1.2]: https://github.com/codaamok/PSCMContentMgmt/tree/1.2

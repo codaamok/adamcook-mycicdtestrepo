@@ -12,7 +12,7 @@
 RootModule = 'adamcook-mycicdtestrepo.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.13.20200823.1'
+ModuleVersion = '1.14.20200823.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -113,9 +113,10 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = 'Added
-- Bundled license file and change log with payload
-- Implemented build process to streamline deployment
-- Added DeploymentId to Find-CMObject'
+- Something new
+- Something new
+Fixed
+- Something fixed'
 
         # Prerelease string of this module
         # Prerelease = ''
