@@ -232,6 +232,7 @@ task CopyLicense {
     Copy-Item -Path $BuildRoot\LICENSE -Destination $BuildRoot\build\$Script:ModuleName
 }
 
+# Synopsis: Copy module manifest files (must exist)
 task CopyModuleManifest {
     $Script:ManifestFile = Copy-Item -Path $BuildRoot\$Script:ModuleName\$Script:ModuleName.psd1 -Destination $BuildRoot\build\$Script:ModuleName -PassThru
 }
