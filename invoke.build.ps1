@@ -12,7 +12,7 @@ task . Clean, GetPSGalleryVersionNumber, CopyChangeLog, GetChangelog, GetRelease
 # Synopsis: Empty the contents of the build and release directories. If not exist, create them.
 task Clean {
     $Paths = @(
-        "{0}\build" -f $BuildRoot
+        "{0}\build\{1}" -f $BuildRoot, $Script:ModuleName
         "{0}\release" -f $BuildRoot
     )
 
