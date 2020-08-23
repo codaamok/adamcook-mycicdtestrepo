@@ -7,7 +7,7 @@ param (
 )
 
 # Synopsis: Initiate the entire build process
-task . Clean, GetPSGalleryVersionNumber, CopyChangeLog, GetChangelog, GetNextVersionNumber, UpdateChangeLog, GetFunctionsToExport, CreateRootModule, CopyFormatFiles, CopyLicense, CreateProcessScript, CopyModuleManifest, UpdateModuleManifest, CreateReleaseAsset
+task . Clean, GetPSGalleryVersionNumber, CopyChangeLog, GetChangelog, GetReleaseNotes, GetNextVersionNumber, UpdateChangeLog, GetFunctionsToExport, CreateRootModule, CopyFormatFiles, CopyLicense, CreateProcessScript, CopyModuleManifest, UpdateModuleManifest, CreateReleaseAsset
 
 # Synopsis: Empty the contents of the build and release directories. If not exist, create them.
 task Clean {
@@ -21,7 +21,7 @@ task Clean {
             Remove-Item -Path $Path\* -Recurse -Force
         }
         else {
-            New-Item -Path $Path -ItemType "Directory" -Force
+            $null = New-Item -Path $Path -ItemType "Directory" -Force
         }
     }
 }
@@ -37,12 +37,14 @@ task GetPSGalleryVersionNumber {
         }
     }
 
-    if (-not $PSGalleryModuleInfo) {
+    if (-not $Script:PSGalleryModuleInfo) {
         $Script:PSGalleryModuleInfo = [PSCustomObject]@{
             "Name"    = $env:GH_PROJECTNAME
             "Version" = "0.0"
         }
     }
+
+    Write-Output ("PowerShell Gallery verison: {0}" -f $Script:PSGalleryModuleInfo.Version)
 }
 
 # Synopsis: Copy CHANGELOG.md (must exist)
@@ -50,13 +52,18 @@ task CopyChangeLog {
     Copy-Item -Path $BuildRoot\CHANGELOG.md -Destination $BuildRoot\build\$Script:ModuleName
 }
 
-# Synopsis: Read change log to get current version number and unreleased release notes
+# Synopsis: Get change log
 task GetChangelog {
-    $ChangeLog = Get-ChangeLogData -Path $BuildRoot\CHANGELOG.md
+    $Script:ChangeLog = Get-ChangeLogData -Path $BuildRoot\CHANGELOG.md
+    Write-Output ("Last released version: {0}" -f $Script:ChangeLog.Released[0].Version)
+}
+
+# Synopsis: Read change log for Unreleased release notes
+task GetReleaseNotes {
     $EmptyUnreleasedChangeLog = $true
 
-    $Script:ReleaseNotes = foreach ($Property in $ChangeLog.Unreleased.Data.PSObject.Properties.Name) {
-        $Data = $ChangeLog.Unreleased.Data.$Property
+    $Script:ReleaseNotes = foreach ($Property in $Script:ChangeLog.Unreleased.Data.PSObject.Properties.Name) {
+        $Data = $Script:ChangeLog.Unreleased.Data.$Property
 
         if ($Data) {
             $EmptyUnreleasedChangeLog = $false
@@ -79,30 +86,28 @@ task GetChangelog {
 
 # Synopsis: Determine next version to publish by evaluating versions in PowerShell Gallery and in the change log
 task GetNextVersionNumber {
-    $ChangeLog = Get-ChangeLogData -Path $BuildRoot\CHANGELOG.md
-
     $Date = Get-Date -Format 'yyyyMMdd'
 
     # If the last released version in the change log and latest version available in the PowerShell gallery don't match, throw an exception - get them level!
-    if ($null -ne $ChangeLog.Released[0].Version -And $ChangeLog.Released[0].Version -ne $Script:PSGalleryModuleInfo.Version) {
+    if ($null -ne $Script:ChangeLog.Released[0].Version -And $Script:ChangeLog.Released[0].Version -ne $Script:PSGalleryModuleInfo.Version) {
         throw "The latest released version in the changelog does not match the latest released version in the PowerShell gallery"
     }
     # If module isn't yet published in the PowerShell gallery, and there's no Released section in the change log, set initial version
-    elseif ($Script:PSGalleryModuleInfo.Version -eq "0.0" -And $ChangeLog.Released.Count -eq 0) {
+    elseif ($Script:PSGalleryModuleInfo.Version -eq "0.0" -And $Script:ChangeLog.Released.Count -eq 0) {
         $Script:VersionToPublish = [System.Version]::New(1, 0, $Date, 0)
     }
     # If module isn't yet published in the PowerShell gallery, and there is a Released section in the change log, update version
-    elseif ($Script:PSGalleryModuleInfo.Version -eq "0.0" -And $ChangeLog.Released.Count -ge 1) {
-        $CurrentVersion   = [System.Version]$ChangeLog.Released[0].Version
+    elseif ($Script:PSGalleryModuleInfo.Version -eq "0.0" -And $Script:ChangeLog.Released.Count -ge 1) {
+        $CurrentVersion          = [System.Version]$Script:ChangeLog.Released[0].Version
         $Script:VersionToPublish = [System.Version]::New($CurrentVersion.Major, $CurrentVersion.Minor + 1, $Date, 0)
     }
     # If the last Released verison in the change log and currently latest verison in the PowerShell gallery are in harmony, update version
-    elseif ($ChangeLog.Released[0].Version -eq $Script:PSGalleryModuleInfo.Version) {
-        $CurrentVersion   = [System.Version]$Script:PSGalleryModuleInfo.Version
+    elseif ($Script:ChangeLog.Released[0].Version -eq $Script:PSGalleryModuleInfo.Version) {
+        $CurrentVersion          = [System.Version]$Script:PSGalleryModuleInfo.Version
         $Script:VersionToPublish = [System.Version]::New($CurrentVersion.Major, $CurrentVersion.Minor + 1, $Date, 0)
     }
     else {
-        Write-Output ("Latest release version from change log: {0}" -f $ChangeLog.Released[0].Version)
+        Write-Output ("Latest release version from change log: {0}" -f $Script:ChangeLog.Released[0].Version)
         Write-Output ("Latest release version from PowerShell gallery: {0}" -f $Script:PSGalleryModuleInfo.Version)
         throw "Can not determine next version number"
     }
