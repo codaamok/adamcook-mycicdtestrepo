@@ -58,7 +58,7 @@ task GetChangelog {
     Write-Output ("Last released version: {0}" -f $Script:ChangeLog.Released[0].Version)
 }
 
-# Synopsis: Read change log for Unreleased release notes
+# Synopsis: Read change log for Unreleased release notes and create releasenotes.txt in release directory
 task GetReleaseNotes {
     $EmptyUnreleasedChangeLog = $true
 
@@ -82,6 +82,8 @@ task GetReleaseNotes {
 
     Write-Output "Release notes:"
     Write-Output $Script:ReleaseNotes
+
+    Set-Content -Value $Script:ReleaseNotes -Path $BuildRoot\release\releasenotes.txt -Force
 }
 
 # Synopsis: Determine next version to publish by evaluating versions in PowerShell Gallery and in the change log

@@ -54,7 +54,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ env.VersionToPublish }}
-          release_name: ${{ env.GH_PROJECTNAME }} ${{ env.VersionToPublish }}
+          release_name: Release ${{ env.VersionToPublish }}
           body_path: release/releasenotes.txt
           draft: false
           prelease: false
