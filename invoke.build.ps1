@@ -49,7 +49,7 @@ task GetPSGalleryVersionNumber {
 
 # Synopsis: Copy CHANGELOG.md (must exist)
 task CopyChangeLog {
-    Copy-Item -Path $BuildRoot\CHANGELOG.md -Destination $BuildRoot\build\$Script:ModuleName
+    Copy-Item -Path $BuildRoot\CHANGELOG.md -Destination $BuildRoot\build\$Script:ModuleName\CHANGELOG.md
 }
 
 # Synopsis: Get change log
