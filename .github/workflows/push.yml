@@ -38,7 +38,7 @@ jobs:
           )
           Import-Module -Name $Modules -ErrorAction "Stop"
 
-          Invoke-Build -ModuleName $env:GH_PROJECTNAME
+          Invoke-Build -ModuleName $env:GH_PROJECTNAME -Author $env:GH_USERNAME -NewRelease
         shell: pwsh
 
       - name: Publish to PowerShell Gallery
@@ -53,8 +53,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.VersionToPublish }}
-          release_name: Release ${{ env.VersionToPublish }}
+          tag_name: ${{ env.VersionToBuild }}
+          release_name: Release ${{ env.VersionToBuild }}
           body_path: release/releasenotes.txt
           draft: false
           prelease: false
@@ -66,8 +66,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url:  ${{ steps.create_release.outputs.upload_url }}
-          asset_path: release/${{ env.GH_PROJECTNAME }}_${{ env.VersionToPublish }}.zip
-          asset_name: ${{ env.GH_PROJECTNAME }}_${{ env.VersionToPublish }}.zip
+          asset_path: release/${{ env.GH_PROJECTNAME }}_${{ env.VersionToBuild }}.zip
+          asset_name: ${{ env.GH_PROJECTNAME }}_${{ env.VersionToBuild }}.zip
           asset_content_type: application/zip
 
       - name: Copy CHANGELOG.md and module manifest to repository root directory
@@ -81,7 +81,7 @@ jobs:
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git add CHANGELOG.md ${GH_PROJECTNAME}/${GH_PROJECTNAME}.psd1
-          git commit -m "Released ${VersionToPublish}: updated change log and manifest"
+          git commit -m "Released ${VersionToBuild}: updated change log and manifest"
       
       - name: Push commit
         uses: ad-m/github-push-action@master

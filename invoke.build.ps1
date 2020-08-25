@@ -1,13 +1,20 @@
 #Requires -Module "ChangelogManagement"
 [CmdletBinding()]
 param (
-    [Parameter(Mandatory)]
+    [Parameter()]
     [ValidateNotNullOrEmpty()]
-    [String]$ModuleName
+    [String]$ModuleName = $env:GH_PROJECTNAME,
+
+    [Parameter()]
+    [ValidateNotNullOrEmpty()]
+    [String]$Author = $env:GH_USERNAME,
+
+    [Parameter()]
+    [Switch]$NewRelease
 )
 
 # Synopsis: Initiate the entire build process
-task . Clean, GetPSGalleryVersionNumber, CopyChangeLog, GetChangelog, GetReleaseNotes, GetNextVersionNumber, UpdateChangeLog, GetFunctionsToExport, CreateRootModule, CopyFormatFiles, CopyLicense, CreateProcessScript, CopyModuleManifest, UpdateModuleManifest, CreateReleaseAsset
+task . Clean, GetPSGalleryVersionNumber, CopyChangeLog, GetChangelog, GetReleaseNotes, GetVersionToBuild, UpdateChangeLog, GetFunctionsToExport, CreateRootModule, CopyFormatFiles, CopyLicense, CreateProcessScript, CopyModuleManifest, UpdateModuleManifest, CreateReleaseAsset
 
 # Synopsis: Empty the contents of the build and release directories. If not exist, create them.
 task Clean {
@@ -29,7 +36,7 @@ task Clean {
 # Synopsis: Get current version number of module in PowerShell Gallery (if published)
 task GetPSGalleryVersionNumber {
     try {
-        $Script:PSGalleryModuleInfo = Find-Module -Name $env:GH_PROJECTNAME -ErrorAction "Stop"
+        $Script:PSGalleryModuleInfo = Find-Module -Name $Script:ModuleName -ErrorAction "Stop"
     }
     catch {
         if ($_.Exception.Message -notmatch "No match was found for the specified search criteria") {
@@ -39,7 +46,7 @@ task GetPSGalleryVersionNumber {
 
     if (-not $Script:PSGalleryModuleInfo) {
         $Script:PSGalleryModuleInfo = [PSCustomObject]@{
-            "Name"    = $env:GH_PROJECTNAME
+            "Name"    = $Script:ModuleName
             "Version" = "0.0"
         }
     }
@@ -60,13 +67,13 @@ task GetChangelog {
 
 # Synopsis: Read change log for Unreleased release notes and create releasenotes.txt in release directory
 task GetReleaseNotes {
-    $EmptyUnreleasedChangeLog = $true
+    $EmptyChangeLog = $true
 
-    $Script:ReleaseNotes = foreach ($Property in $Script:ChangeLog.Unreleased.Data.PSObject.Properties.Name) {
-        $Data = $Script:ChangeLog.Unreleased.Data.$Property
+    $Script:ReleaseNotes = foreach ($Property in $Script:ChangeLog.Unreleased[0].Data.PSObject.Properties.Name) {
+        $Data = $Script:ChangeLog.Unreleased[0].Data.$Property
 
         if ($Data) {
-            $EmptyUnreleasedChangeLog = $false
+            $EmptyChangeLog = $false
 
             Write-Output $Property
 
@@ -76,8 +83,13 @@ task GetReleaseNotes {
         }
     }
 
-    if ($EmptyUnreleasedChangeLog -eq $true -Or $Script:ReleaseNotes.Count -eq 0) {
-        throw "Can not deploy with empty Unreleased section in the change log"
+    if ($EmptyChangeLog -eq $true -Or $Script:ReleaseNotes.Count -eq 0) {
+        if ($NewRelease.IsPresent) {
+            throw "Can not build with empty Unreleased section in the change log"
+        }
+        else {
+            $Script:ReleaseNotes = "None"
+        }
     }
 
     Write-Output "Release notes:"
@@ -86,73 +98,84 @@ task GetReleaseNotes {
     Set-Content -Value $Script:ReleaseNotes -Path $BuildRoot\release\releasenotes.txt -Force
 }
 
-# Synopsis: Determine next version to publish by evaluating versions in PowerShell Gallery and in the change log
-task GetNextVersionNumber {
-    $Date = Get-Date -Format 'yyyyMMdd'
+# Synopsis: Determine version number to build blish with by evaluating versions in PowerShell Gallery and in the change log
+task GetVersionToBuild {
+    if ($NewRelease.IsPresent) {
+        $Date = Get-Date -Format 'yyyyMMdd'
 
-    # If the last released version in the change log and latest version available in the PowerShell gallery don't match, throw an exception - get them level!
-    if ($null -ne $Script:ChangeLog.Released[0].Version -And $Script:ChangeLog.Released[0].Version -ne $Script:PSGalleryModuleInfo.Version) {
-        throw "The latest released version in the changelog does not match the latest released version in the PowerShell gallery"
-    }
-    # If module isn't yet published in the PowerShell gallery, and there's no Released section in the change log, set initial version
-    elseif ($Script:PSGalleryModuleInfo.Version -eq "0.0" -And $Script:ChangeLog.Released.Count -eq 0) {
-        $Script:VersionToPublish = [System.Version]::New(1, 0, $Date, 0)
-    }
-    # If module isn't yet published in the PowerShell gallery, and there is a Released section in the change log, update version
-    elseif ($Script:PSGalleryModuleInfo.Version -eq "0.0" -And $Script:ChangeLog.Released.Count -ge 1) {
-        $CurrentVersion          = [System.Version]$Script:ChangeLog.Released[0].Version
-        $Script:VersionToPublish = [System.Version]::New($CurrentVersion.Major, $CurrentVersion.Minor + 1, $Date, 0)
-    }
-    # If the last Released verison in the change log and currently latest verison in the PowerShell gallery are in harmony, update version
-    elseif ($Script:ChangeLog.Released[0].Version -eq $Script:PSGalleryModuleInfo.Version) {
-        $CurrentVersion          = [System.Version]$Script:PSGalleryModuleInfo.Version
-        $Script:VersionToPublish = [System.Version]::New($CurrentVersion.Major, $CurrentVersion.Minor + 1, $Date, 0)
+        # If the last released version in the change log and latest version available in the PowerShell gallery don't match, throw an exception - get them level!
+        if ($null -ne $Script:ChangeLog.Released[0].Version -And $Script:ChangeLog.Released[0].Version -ne $Script:PSGalleryModuleInfo.Version) {
+            throw "The latest released version in the changelog does not match the latest released version in the PowerShell gallery"
+        }
+        # If module isn't yet published in the PowerShell gallery, and there's no Released section in the change log, set initial version
+        elseif ($Script:PSGalleryModuleInfo.Version -eq "0.0" -And $Script:ChangeLog.Released.Count -eq 0) {
+            $Script:VersionToBuild = [System.Version]::New(1, 0, $Date, 0)
+        }
+        # If module isn't yet published in the PowerShell gallery, and there is a Released section in the change log, update version
+        elseif ($Script:PSGalleryModuleInfo.Version -eq "0.0" -And $Script:ChangeLog.Released.Count -ge 1) {
+            $CurrentVersion        = [System.Version]$Script:ChangeLog.Released[0].Version
+            $Script:VersionToBuild = [System.Version]::New($CurrentVersion.Major, $CurrentVersion.Minor + 1, $Date, 0)
+        }
+        # If the last Released verison in the change log and currently latest verison in the PowerShell gallery are in harmony, update version
+        elseif ($Script:ChangeLog.Released[0].Version -eq $Script:PSGalleryModuleInfo.Version) {
+            $CurrentVersion        = [System.Version]$Script:PSGalleryModuleInfo.Version
+            $Script:VersionToBuild = [System.Version]::New($CurrentVersion.Major, $CurrentVersion.Minor + 1, $Date, 0)
+        }
+        else {
+            Write-Output ("Latest release version from change log: {0}" -f $Script:ChangeLog.Released[0].Version)
+            Write-Output ("Latest release version from PowerShell gallery: {0}" -f $Script:PSGalleryModuleInfo.Version)
+            throw "Can not determine next version number"
+        }
+    
+        # Suss out unlisted packages
+        for ($i = $Script:VersionToBuild.Revision; $i -le 100; $i++) {
+            if ($i -eq 100) {
+                throw "You have 100 unlisted packages under the same build number? Sort your life out."
+            }
+    
+            try {
+                $Script:PSGalleryModuleInfo = Find-Module -Name $Script:ModuleName -RequiredVersion $Script:VersionToBuild
+                if ($Script:PSGalleryModuleInfo) {
+                    $Script:VersionToBuild = [System.Version]::New($Script:VersionToBuild.Major, $Script:VersionToBuild.Minor, $Script:VersionToBuild.Build, $i)
+                }
+                else {
+                    throw "Unusual no object or exception caught from Find-Module"
+                }
+            }
+            catch {
+                if ($_.Exception.Message -match "No match was found for the specified search criteria") {
+                    # Found next available version to use
+                    break
+                }
+                else {
+                    throw $_
+                }
+            }
+        }
     }
     else {
-        Write-Output ("Latest release version from change log: {0}" -f $Script:ChangeLog.Released[0].Version)
-        Write-Output ("Latest release version from PowerShell gallery: {0}" -f $Script:PSGalleryModuleInfo.Version)
-        throw "Can not determine next version number"
-    }
-
-    # Suss out unlisted packages
-    for ($i = $Script:VersionToPublish.Revision; $i -le 100; $i++) {
-        if ($i -eq 100) {
-            throw "You have 100 unlisted packages under the same build number? Sort your life out."
+        $ModuleManifest = Import-PowerShellDataFile -Path $BuildRoot\$Script:ModuleName\$Script:ModuleName.psd1
+        if ($Script:ChangeLog.Released[0].Version -eq $ModuleManifest.ModuleVersion) {
+            $Script:VersionToBuild = [System.Version]::New(([System.Version]$ModuleManifest.ModuleVersion).Major, ([System.Version]$ModuleManifest.ModuleVersion).Minor, ([System.Version]$ModuleManifest.ModuleVersion).Build, ([System.Version]$ModuleManifest.ModuleVersion).Revision + 1)
         }
-
-        try {
-            $Script:PSGalleryModuleInfo = Find-Module -Name $env:GH_PROJECTNAME -RequiredVersion $Script:VersionToPublish
-            if ($Script:PSGalleryModuleInfo) {
-                $Script:VersionToPublish = [System.Version]::New($Script:VersionToPublish.Major, $Script:VersionToPublish.Minor, $Script:VersionToPublish.Build, $i)
-            }
-            else {
-                throw "Unusual no object or exception caught from Find-Module"
-            }
-        }
-        catch {
-            if ($_.Exception.Message -match "No match was found for the specified search criteria") {
-                # Found next available version to use
-                break
-            }
-            else {
-                throw $_
-            }
+        else {
+            throw "Can not build with unmatching module version numbers in the change log and module manifest"
         }
     }
 
-    Write-Output ("Version to publish: {0}" -f $Script:VersionToPublish)
-    Write-Output ("::set-env name=VersionToPublish::{0}" -f $Script:VersionToPublish)
+    Write-Output ("Version to build: {0}" -f $Script:VersionToBuild)
+    Write-Output ("::set-env name=VersionToBuild::{0}" -f $Script:VersionToBuild)
 }
 
-# Synopsis: Update CHANGELOG.md
-task UpdateChangeLog {
+# Synopsis: Update CHANGELOG.md if building a new release (-NewRelease switch parameter)
+task UpdateChangeLog -If ($NewRelease.IsPresent) {
     $LinkPattern   = @{
-        FirstRelease  = "https://github.com/{0}/{1}/tree/{{CUR}}" -f $env:GH_USERNAME, $env:GH_PROJECTNAME
-        NormalRelease = "https://github.com/{0}/{1}/compare/{{PREV}}..{{CUR}}" -f $env:GH_USERNAME, $env:GH_PROJECTNAME
-        Unreleased    = "https://github.com/{0}/{1}/compare/{{CUR}}..HEAD" -f $env:GH_USERNAME, $env:GH_PROJECTNAME
+        FirstRelease  = "https://github.com/{0}/{1}/tree/{{CUR}}" -f $Script:Author, $Script:ModuleName
+        NormalRelease = "https://github.com/{0}/{1}/compare/{{PREV}}..{{CUR}}" -f $Script:Author, $Script:ModuleName
+        Unreleased    = "https://github.com/{0}/{1}/compare/{{CUR}}..HEAD" -f $Script:Author, $Script:ModuleName
     }
 
-    Update-Changelog -Path $BuildRoot\build\$Script:ModuleName\CHANGELOG.md -ReleaseVersion $Script:VersionToPublish -LinkMode Automatic -LinkPattern $LinkPattern
+    Update-Changelog -Path $BuildRoot\build\$Script:ModuleName\CHANGELOG.md -ReleaseVersion $Script:VersionToBuild -LinkMode Automatic -LinkPattern $LinkPattern
 }
 
 # Synopsis: Gather all exported functions to populate manifest with
@@ -180,7 +203,7 @@ task GetFunctionsToExport {
     }
 }
 
-# Synopsis: Creates a single .psm1 file of all private and public functions of the to-be-published module
+# Synopsis: Creates a single .psm1 file of all private and public functions of the to-be-built module
 task CreateRootModule {
     $RootModule = New-Item -Path $BuildRoot\build\$Script:ModuleName\$Script:ModuleName.psm1 -ItemType "File" -Force
 
@@ -243,7 +266,7 @@ task UpdateModuleManifest {
         Path = $Script:ManifestFile
     }
 
-    $UpdateModuleManifestSplat["ModuleVersion"] = $Script:VersionToPublish
+    $UpdateModuleManifestSplat["ModuleVersion"] = $Script:VersionToBuild
 
     $UpdateModuleManifestSplat["ReleaseNotes"] = $Script:ReleaseNotes
 
@@ -269,6 +292,6 @@ task UpdateModuleManifest {
 
 # Synopsis: Create release asset (archived module)
 task CreateReleaseAsset {
-    $ReleaseAsset = "{0}_{1}.zip" -f $Script:ModuleName, $Script:VersionToPublish
+    $ReleaseAsset = "{0}_{1}.zip" -f $Script:ModuleName, $Script:VersionToBuild
     Compress-Archive -Path $BuildRoot\build\$Script:ModuleName\* -DestinationPath $BuildRoot\release\$ReleaseAsset -Force
 }
