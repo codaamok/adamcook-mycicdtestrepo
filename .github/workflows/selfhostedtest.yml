@@ -19,9 +19,9 @@ jobs:
           $Username, $ProjectName = $env:GITHUB_REPOSITORY -split "/"
           Write-Output "::set-env name=GH_PROJECTNAME::$ProjectName"
           Write-Output "::set-env name=GH_USERNAME::$Username"
-        shell: pwsh
+        shell: powershell
 
       - name: List C drive
         run: |
           Get-ChildItem -Path "C:\"
-        shell: pwsh
+        shell: powershell
