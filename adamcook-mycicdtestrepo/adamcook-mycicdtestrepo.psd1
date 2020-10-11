@@ -30,7 +30,7 @@ CompanyName = ''
 Copyright = '(c) 2020 - Adam Cook (@codaamok). All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'PowerShell module used for managing Microsoft Endpoint Manager Configuration Manager distribution point content.'
+Description = 'My test CI/CD module'
 
 # Minimum version of the PowerShell engine required by this module
 PowerShellVersion = '5.1'
@@ -57,7 +57,7 @@ PowerShellVersion = '5.1'
 # RequiredAssemblies = @()
 
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
-ScriptsToProcess = 'Process.ps1'
+# ScriptsToProcess = ''
 
 # Type files (.ps1xml) to be loaded when importing this module
 # TypesToProcess = @()
