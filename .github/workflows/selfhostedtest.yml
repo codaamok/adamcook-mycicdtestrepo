@@ -21,7 +21,7 @@ jobs:
           Write-Output "::set-env name=GH_USERNAME::$Username"
         shell: powershell
 
-      - name: List C drive
+      - name: Test
         run: |
-          Get-ChildItem -Path "C:\"
+          Copy-Item -Path .\ -Destination \\sccm\c$\temp -Recurse -Force 
         shell: powershell
