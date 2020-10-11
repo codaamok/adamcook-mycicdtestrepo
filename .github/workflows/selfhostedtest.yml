@@ -23,5 +23,5 @@ jobs:
 
       - name: Test
         run: |
-          Copy-Item -Path .\ -Destination \\sccm\c$\temp -Recurse -Force 
+          Copy-Item -Path .\ -Destination \\sccm\dummy -Recurse -Force 
         shell: powershell
