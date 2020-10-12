@@ -1,4 +1,4 @@
-name: "01 - Using Actions a"
+name: "01 - Using Actions b"
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
 
 jobs:
   main:
+    runs-on: ubuntu-latest
     steps:
       - name: Hello world
         run: echo "Hello world"

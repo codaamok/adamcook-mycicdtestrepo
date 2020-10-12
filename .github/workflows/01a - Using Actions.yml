@@ -1,4 +1,4 @@
-name: "06 - Deploy"
+name: "01 - Using Actions a"
 
 on:
   push:

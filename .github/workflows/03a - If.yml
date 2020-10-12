@@ -1,5 +1,5 @@
-name: "01 - Using Actions b"
-
+name: "03 - If"
+# On commit message?
 on:
   push:
     branches:
@@ -7,6 +7,7 @@ on:
 
 jobs:
   main:
+    runs-on: ubuntu-latest
     steps:
       - name: Hello world
         run: echo "Hello world"

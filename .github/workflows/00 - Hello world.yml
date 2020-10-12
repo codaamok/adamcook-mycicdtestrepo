@@ -1,12 +1,26 @@
+# Name your workflow
 name: "00 - Hello world"
 
+# Define your event(s)
+# https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#on
 on:
   push:
     branches:
-      - idonotexist
-    
+      - master
+
+# Define your job(s)
+# https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobs
 jobs:
+
+  # Name your job
   main:
+
+  # Define your runner(s)
+  # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+  runs-on: [ubuntu-latest, windows-latest]
+
+    # Define your step(s)
+    # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idsteps
     steps:
       - name: Hello world
         run: echo "Hello world"
