@@ -15,9 +15,9 @@ jobs:
   # Name your job
   main:
 
-  # Define your runner(s)
-  # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-  runs-on: [ubuntu-latest, windows-latest]
+    # Define your runner(s)
+    # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    runs-on: [ubuntu-latest, windows-latest]
 
     # Define your step(s)
     # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idsteps
