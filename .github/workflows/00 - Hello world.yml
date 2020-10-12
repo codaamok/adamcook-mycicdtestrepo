@@ -6,3 +6,4 @@ on:
       - idonotexist
     
 jobs:
+  main:
