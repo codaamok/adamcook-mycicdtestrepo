@@ -1,0 +1,6 @@
+name: "06 - Deploy"
+
+on:
+  push:
+    branches:
+      - idonotexist

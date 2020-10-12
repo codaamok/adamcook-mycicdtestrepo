@@ -1,0 +1,6 @@
+name: "04 - Job matrix"
+
+on:
+  push:
+    branches:
+      - idonotexist

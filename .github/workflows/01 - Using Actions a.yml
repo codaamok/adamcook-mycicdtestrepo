@@ -1,0 +1,6 @@
+name: "01 - Using Actions a"
+
+on:
+  push:
+    branches:
+      - idonotexist

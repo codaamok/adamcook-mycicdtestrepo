@@ -1,0 +1,6 @@
+name: "00 - Hello world"
+
+on:
+  push:
+    branches:
+      - idonotexist
