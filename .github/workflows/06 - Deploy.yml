@@ -4,3 +4,5 @@ on:
   push:
     branches:
       - idonotexist
+
+jobs:
