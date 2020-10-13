@@ -6,11 +6,15 @@ on:
     branches:
       - master
 
+env:
+  WinAdmins: Rock
+
 jobs:
   main: 
     runs-on: ubuntu-latest 
     env:
-      FIRST_NAME: ${{ env.GITHUB_WORKFLOW }}
+      FIRST_NAME: Adam
+      LAST_NAME: Cook
     steps:
       - name: Define and print variable x
         run: |
