@@ -6,8 +6,8 @@ on:
       - idonotexist
     paths-ignore:
       - '.github/workflows/*.yml'
-    paths:
-      - 'adamcook-mycicdtestrepo/Public/*.ps1'
+    #paths:
+    #  - 'adamcook-mycicdtestrepo/Public/*.ps1'
 
 jobs:
   main:

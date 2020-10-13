@@ -22,7 +22,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: TwitterProfilePicture
-          path: picture.jog
+          path: picture.jpg
 
   secondary-job:
     runs-on: windows-latest
