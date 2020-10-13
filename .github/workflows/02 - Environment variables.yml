@@ -8,7 +8,9 @@ on:
 
 jobs:
   main: 
-    runs-on: ubuntu-latest
+    env:
+      myjobvariable: ${{ env.GITHUB_WORKFLOW }}   
+    runs-on: ubuntu-latest 
     steps:
       - name: Define and print variable x
         run: |
@@ -40,7 +42,3 @@ jobs:
 
       - name: Read DISTRIBUTIONINFO
         run: echo $DISTRIBUTIONINFO
-
-        # How to reference an environment variable
-        # How to set an environment variable:
-          # - a means of sharing data between steps
