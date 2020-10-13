@@ -14,18 +14,17 @@ jobs:
         run: Write-Output $env:GITHUB_WORKFLOW
         shell: pwsh
 
-      - name: Create new environment variables to use in later steps
+      - name: Create new environment variable to use in later steps
         #run: echo "my_own_variable=yellow" >> $GITHUB_ENV
         run: Write-Output "my_own_variable=yellow" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         shell: pwsh
 
-      - name: Read GITHUB_ENV
-        run: Write-Output $env:GITHUB_ENV; Get-Content $env:GITHUB_ENV; Test-Path $env:GITHUB_ENV
-        shell: pwsh
+      - name: Create new multi line environment variable 
+        run: |
+          echo 'DISTRIBUTIONINFO<<XYZ' >> $GITHUB_ENV
+          cat /etc/*lease >> $GITHUB_ENV
+          echo 'XYZ' >> $GITHUB_ENV
 
-      - name: Long list GITHUB_ENV
-        run: ls -lash $GITHUB_ENV
-      
       - name: Read my_own_variable
         run: echo $my_own_variable
 
