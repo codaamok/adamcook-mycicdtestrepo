@@ -10,12 +10,13 @@ jobs:
   main: 
     runs-on: ubuntu-latest
     steps:
-      - name: Accessing GITHUB_WORKFLOW environment variable in the shell
+      - name: Accessing GITHUB_WORKFLOW (default) environment variable in the shell
         run: Write-Output $env:GITHUB_WORKFLOW
         shell: pwsh
 
-      - name: Update GITHUB_ENV
-        run: echo "action_state=yellow" >> $GITHUB_ENV
+      - name: Create new environment variables to use in later steps
+        #run: echo "my_own_variable=yellow" >> $GITHUB_ENV
+        run: Write-Output "my_own_variable=yellow" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
       - name: Read GITHUB_ENV
         run: Write-Output $env:GITHUB_ENV; Get-Content $env:GITHUB_ENV; Test-Path $env:GITHUB_ENV
@@ -24,11 +25,10 @@ jobs:
       - name: Long list GITHUB_ENV
         run: ls -lash $GITHUB_ENV
       
-      - name: Read action_state
-        run: echo $action_state
+      - name: Read my_own_variable
+        run: echo $my_own_variable
 
 
         # How to reference an environment variable
-        # Multi line run vs single line
         # How to set an environment variable:
           # - a means of sharing data between steps
