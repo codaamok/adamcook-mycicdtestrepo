@@ -1,0 +1,42 @@
+name: "04a - Jobs again"
+# Demonstrate can't share environment variables between jobs unless we define a workflow-wide env var
+# Demonstrate sharing data between jobs using artifacts: https://docs.github.com/en/free-pro-team@latest/actions/guides/storing-workflow-data-as-artifacts#passing-data-between-jobs-in-a-workflow
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  WinAdmins: Rock
+
+jobs:
+  primary-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Twitter profile picture
+        run: Invoke-WebRequest -Uri "https://pbs.twimg.com/profile_images/1268965837307883523/bYeHYapB_400x400.jpg" -OutFile "picture.jpg"
+        shell: pwsh
+      
+      - name: Upload picture as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: TwitterProfilePicture
+          path: picture.jog
+
+  secondary-job:
+    runs-on: windows-latest
+    needs: primary-job
+    steps:
+      - name: Check if picture.jpg exists
+        run: Test-Path "picture.jpg"
+        shell: pwsh
+
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: TwitterProfilePicture
+
+      - name: Check if picture.jpg exists
+        run: Test-Path "picture.jpg"
+        shell: pwsh

@@ -4,10 +4,7 @@ name: "03 - Environment variables"
 on:
   push:
     branches:
-      - master
-
-env:
-  WinAdmins: Rock
+      - idonotexist
 
 jobs:
   main: 
