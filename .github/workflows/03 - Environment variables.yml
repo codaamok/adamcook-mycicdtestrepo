@@ -1,4 +1,4 @@
-name: "02 - Environment variables"
+name: "03 - Environment variables"
 # https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables#default-environment-variables
 
 on:
@@ -8,9 +8,9 @@ on:
 
 jobs:
   main: 
-    env:
-      myjobvariable: ${{ env.GITHUB_WORKFLOW }}   
     runs-on: ubuntu-latest 
+    env:
+      FIRST_NAME: Mona
     steps:
       - name: Define and print variable x
         run: |

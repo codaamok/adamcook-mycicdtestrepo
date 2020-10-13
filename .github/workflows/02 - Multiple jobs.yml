@@ -1,0 +1,23 @@
+name: "02 - Multiple jobs"
+# show parallelism as well as depends on
+# sharing data between jobs? show we can't share environment variables
+
+on:
+  push:
+    branches:
+      - idonotexist
+
+jobs:
+  primary-job:
+    runs-on: ubuntu-latest
+    steps:
+      - Name: Print datetime
+        run: Get-Date
+        shell: pwsh
+
+  secondary-job:
+    runs-on: windows-latest
+    steps:
+      - Name: Print datetime
+        run: Get-Date
+        shell: pwsh
