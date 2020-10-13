@@ -10,7 +10,7 @@ jobs:
   main: 
     runs-on: ubuntu-latest 
     env:
-      FIRST_NAME: Mona
+      FIRST_NAME: ${{ env.GITHUB_WORKFLOW }}
     steps:
       - name: Define and print variable x
         run: |
