@@ -10,6 +10,16 @@ jobs:
   main: 
     runs-on: ubuntu-latest
     steps:
+      - name: Define and print variable x
+        run: |
+          $x = "Hello world"
+          Write-Output $x
+        shell: pwsh
+
+      - name: Print variable x again
+        run: Write-Output $x
+        shell: pwsh
+
       - name: Accessing GITHUB_WORKFLOW (default) environment variable in the shell
         run: Write-Output $env:GITHUB_WORKFLOW
         shell: pwsh
@@ -34,11 +44,3 @@ jobs:
         # How to reference an environment variable
         # How to set an environment variable:
           # - a means of sharing data between steps
-  notmain:
-    needs: main
-    runs-on: ubuntu-latest
-    steps:
-      - name: Try and read env var from last job, probably won't work, I vibe it's a fresh environment
-        run: |
-          $my_own_variable
-          echo $DISTRIBUTIONINFO
