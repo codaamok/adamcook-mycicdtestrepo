@@ -20,5 +20,5 @@ jobs:
         with:
           connection_string: ${{ secrets.AZURE_STORAGE_BLOB_SAS_CONNECTIONSTRING }}
           container_name: winadmins-githubactions
-          source_dir: ${{ env.source_dir }}
+          source_dir: $source_dir
           sync: true
