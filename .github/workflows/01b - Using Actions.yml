@@ -15,8 +15,9 @@ jobs:
         # https://github.com/marketplace/actions/azure-blob-storage-upload
       - name: Azure Blob Upload
         uses: bacongobbler/azure-blob-storage-upload@v1.1.1
+        env:
+          source_dir: $GITHUB_WORKSPACE
         with:
           connection_string: ${{ secrets.AZURE_STORAGE_BLOB_SAS_CONNECTIONSTRING }}
           container_name: winadmins-githubactions
           sync: true
-          source_dir: $GITHUB_WORKSPACE
