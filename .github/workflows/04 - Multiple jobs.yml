@@ -1,5 +1,6 @@
 name: "04 - Multiple jobs"
 # show parallelism as well as depends on
+# sharing data between jobs?
 
 on:
   push:
