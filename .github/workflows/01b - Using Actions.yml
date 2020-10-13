@@ -15,11 +15,17 @@ jobs:
       - name: Print GITHUB_WORKSPACE
         run: echo ${{ env.GITHUB_WORKSPACE }}
 
+      - name: GitHub Environment Variables Action
+        uses: FranzDiebold/github-env-vars-action@v1.2.1
+        run: |
+          echo "GITHUB_WORKSPACE"
+
         # https://github.com/marketplace/actions/azure-blob-storage-upload
       - name: Azure Blob Upload
         uses: bacongobbler/azure-blob-storage-upload@v1.1.1
+        env:
+          source_dir: ${{ env.GITHUB_WORKSPACE }}
         with:
           connection_string: ${{ secrets.AZURE_STORAGE_BLOB_SAS_CONNECTIONSTRING }}
           container_name: winadmins-githubactions
-          source_dir: ${{ env.GITHUB_WORKSPACE }}
           sync: true
