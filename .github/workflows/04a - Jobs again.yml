@@ -37,6 +37,11 @@ jobs:
         with:
           name: TwitterProfilePicture
 
+      - name: Show picture.jpg
+        run: |
+          sudo apt install jp2a
+          jp2a picture.jpg
+
       - name: Check if picture.jpg exists
         run: Test-Path "picture.jpg"
         shell: pwsh
