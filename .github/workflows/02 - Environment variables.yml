@@ -1,4 +1,5 @@
 name: "02 - Environment variables"
+# https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables#default-environment-variables
 
 on:
   push:
@@ -11,3 +12,8 @@ jobs:
     steps:
       - name: Hello world
         run: echo "Hello world"
+
+        # How to reference an environment variable
+        # Multi line run vs single line
+        # How to set an environment variable:
+          # - a means of sharing data between steps

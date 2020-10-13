@@ -6,7 +6,7 @@ name: "00 - Hello world"
 on:
   push:
     branches:
-      - master
+      - idonotexist
 
 # Define your job(s)
 # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobs
@@ -23,4 +23,5 @@ jobs:
     # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idsteps
     steps:
       - name: Hello world
-        run: echo "Hello world"
+        run: Write-Output "Hello world"
+        shell: pwsh

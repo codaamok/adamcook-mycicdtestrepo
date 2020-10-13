@@ -1,4 +1,4 @@
-name: "01 - Using Actions b"
+name: "01b - Using Actions"
 
 on:
   push:
@@ -9,5 +9,14 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - name: Hello world
-        run: echo "Hello world"
+      - name: Checkout repository
+        uses: actions/checkout@2.3.3
+
+        # https://github.com/marketplace/actions/azure-blob-storage-upload
+      - name: Azure Blob Upload
+        uses: bacongobbler/azure-blob-storage-upload@v1.1.1
+        with:
+          connection_string: ${{ secrets.AZURE_STORAGE_BLOB_SAS_CONNECTIONSTRING }}
+          source_dir: ${{ env.GITHUB_WORKSPACE }}
+          container_name: winadmins-githubactions
+          sync: true
