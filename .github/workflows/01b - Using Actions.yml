@@ -12,6 +12,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2.3.3
 
+      - name: Print GITHUB_WORKSPACE
+        run: echo $GITHUB_WORKSPACE
+
         # https://github.com/marketplace/actions/azure-blob-storage-upload
       - name: Azure Blob Upload
         uses: bacongobbler/azure-blob-storage-upload@v1.1.1
