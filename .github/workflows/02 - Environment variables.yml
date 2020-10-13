@@ -14,8 +14,15 @@ jobs:
         run: Write-Output $env:GITHUB_WORKFLOW
         shell: pwsh
 
+      - name: Update GITHUB_ENV
+        run: echo "action_state=yellow" >> $GITHUB_ENV
+
       - name: Read GITHUB_ENV
         run: cat $GITHUB_ENV
+      
+      - name: Read action_state
+        run: echo $action_state
+
 
         # How to reference an environment variable
         # Multi line run vs single line
