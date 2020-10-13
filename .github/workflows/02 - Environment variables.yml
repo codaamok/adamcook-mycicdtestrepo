@@ -16,7 +16,7 @@ jobs:
 
       - name: Same again, but using env
         env:
-          somevariable: ${{ env.GITHUB_WORKFLOW }}
+          somevariable: "hello world"
         run: Write-Output $env:somevariable
         shell: pwsh
 
