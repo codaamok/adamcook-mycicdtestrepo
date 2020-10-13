@@ -18,7 +18,7 @@ jobs:
         run: echo "action_state=yellow" >> $GITHUB_ENV
 
       - name: Read GITHUB_ENV
-        run: Get-Content $env:GITHUB_ENV
+        run: Write-Output $env:GITHUB_ENV; Get-Content $env:GITHUB_ENV; Test-Path $GITHUB_ENV
         shell: pwsh
       
       - name: Read action_state
