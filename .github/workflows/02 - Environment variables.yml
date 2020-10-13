@@ -4,14 +4,21 @@ name: "02 - Environment variables"
 on:
   push:
     branches:
-      - idonotexist
+      - master
 
 jobs:
   main: 
     runs-on: ubuntu-latest
     steps:
-      - name: Hello world
-        run: echo "Hello world"
+      - name: Accessing GITHUB_WORKFLOW environment variable in the shell
+        run: Write-Output $env:GITHUB_WORKFLOW
+        shell: pwsh
+
+      - name: Same again, but using env
+        env:
+          somevariable: ${{ env.GITHUB_WORKFLOW }}
+        run: Write-Output $env:somevariable
+        shell: pwsh
 
         # How to reference an environment variable
         # Multi line run vs single line
