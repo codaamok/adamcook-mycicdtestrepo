@@ -14,11 +14,8 @@ jobs:
         run: Write-Output $env:GITHUB_WORKFLOW
         shell: pwsh
 
-      - name: Same again, but using env
-        env:
-          somevariable: ${{ cat /etc/*lease }}
-        run: Write-Output $env:somevariable
-        shell: pwsh
+      - name: Read GITHUB_ENV
+        run: cat $GITHUB_ENV
 
         # How to reference an environment variable
         # Multi line run vs single line
