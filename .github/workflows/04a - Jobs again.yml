@@ -39,6 +39,7 @@ jobs:
 
       - name: Show picture.jpg
         run: |
+          export TERM=xterm
           sudo apt install jp2a
           jp2a picture.jpg
 
