@@ -18,7 +18,7 @@ jobs:
         run: echo "action_state=yellow" >> $GITHUB_ENV
 
       - name: Read GITHUB_ENV
-        run: cat $GITHUB_ENV
+        run: echo $GITHUB_ENV
       
       - name: Read action_state
         run: echo $action_state
