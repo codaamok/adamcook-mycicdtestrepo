@@ -11,7 +11,7 @@ jobs:
     steps:
       # https://github.com/marketplace/actions/checkout
       - name: Checkout repository # Why is it called "checkout", and not "clone"?!
-        uses: actions/checkout@2.3.1
+        uses: actions/checkout@v2.3.3
 
       - name: List contents
         run: Get-ChildItem
