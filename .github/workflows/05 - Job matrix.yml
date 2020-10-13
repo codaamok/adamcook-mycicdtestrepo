@@ -1,4 +1,4 @@
-name: "06 - Deploy"
+name: "05 - Job matrix"
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: "04 - Job matrix"
+name: "06 - Self hosted runner"
 
 on:
   push:

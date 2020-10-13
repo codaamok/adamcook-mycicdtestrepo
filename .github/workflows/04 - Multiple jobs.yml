@@ -1,4 +1,5 @@
-name: "05 - Self hosted runner"
+name: "04 - Multiple jobs"
+# show parallelism as well as depends on
 
 on:
   push:
