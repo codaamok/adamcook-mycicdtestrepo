@@ -16,7 +16,7 @@ jobs:
 
       - name: Same again, but using env
         env:
-          somevariable: "hello world"
+          somevariable: $(cat /etc/*lease)
         run: Write-Output $env:somevariable
         shell: pwsh
 
