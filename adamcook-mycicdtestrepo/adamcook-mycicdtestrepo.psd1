@@ -12,7 +12,7 @@
 RootModule = 'adamcook-mycicdtestrepo.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.25.20201014.0'
+ModuleVersion = '1.26.20201014.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
