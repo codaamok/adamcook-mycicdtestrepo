@@ -109,7 +109,7 @@ jobs:
         run: Get-ChildItem -Path $env:downloadpath\*\
         shell: powershell
         env:
-          downloadpath: ${{ steps.donwload.outputs.download-path }}
+          downloadpath: ${{ steps.download.outputs.download-path }}
 
       - name: Extract archive, copy to shared folder and publish to internal PS repository
         run: |
@@ -121,5 +121,5 @@ jobs:
           Remove-Item $Artifact,$ExtractedPath -Force -ErrorAction "Stop"
         shell: powershell
         env:
-          downloadpath: ${{ steps.donwload.outputs.download-path }}
+          downloadpath: ${{ steps.download.outputs.download-path }}
         
