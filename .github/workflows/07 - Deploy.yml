@@ -75,7 +75,7 @@ jobs:
       - name: Upload release as artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.GH_PROJECTNAME }}_${{ env.VersionToBuild }}
+          name: ${{ env.GITHUB_SHA }}
           path: release/${{ env.GH_PROJECTNAME }}_${{ env.VersionToBuild }}.zip
 
       - name: Copy CHANGELOG.md and module manifest to repository root directory
@@ -105,7 +105,7 @@ jobs:
         uses: actions/download-artifact@v2
         id: download
         with:
-            path: ${{ env.GITHUB_SHA }}
+          name: ${{ env.GITHUB_SHA }}
 
       - name: List directory
         run: Get-ChildItem -Path $env:downloadpath
