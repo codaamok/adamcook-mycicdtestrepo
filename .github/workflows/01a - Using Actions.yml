@@ -3,7 +3,7 @@ name: "01a - Using Actions"
 on:
   push:
     branches:
-      - idonotexist
+      - master
 
 jobs:
   job-1:
