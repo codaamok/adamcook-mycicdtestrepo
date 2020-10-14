@@ -106,6 +106,7 @@ jobs:
         id: download
         with:
           name: ${{ github.SHA }}
+          path: ${{ github.SHA }}
 
       - name: List directory
         run: Get-ChildItem -Path $env:downloadpath
