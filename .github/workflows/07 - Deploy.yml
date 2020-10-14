@@ -3,7 +3,7 @@ name: "07 - Deploy"
 on: 
   push:
     branches:
-      - master
+      - idonotexist
 
 jobs:
   job-1:
