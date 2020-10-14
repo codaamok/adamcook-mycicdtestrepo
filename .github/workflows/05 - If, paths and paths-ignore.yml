@@ -4,10 +4,10 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
-      - '.github/workflows/*.yml'
-    #paths:
-    #  - 'adamcook-mycicdtestrepo/Public/*.ps1'
+    #paths-ignore:
+    #  - '.github/workflows/*.yml'
+    paths:
+      - 'adamcook-mycicdtestrepo/Public/*.ps1'
 
 jobs:
   main:
