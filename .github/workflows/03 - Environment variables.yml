@@ -4,7 +4,7 @@ name: "03 - Environment variables"
 on:
   push:
     branches:
-      - idonotexist
+      - master
 
 jobs:
   job-1: 
@@ -30,7 +30,8 @@ jobs:
         shell: pwsh
 
       - name: Read my_own_variable
-        run: echo $my_own_variable
+        run: Write-Output $env:my_own_variable
+        shell: pwsh
 
       - name: Create new multi line environment variable 
         run: |
@@ -39,4 +40,5 @@ jobs:
           echo 'XYZ' >> $GITHUB_ENV
 
       - name: Read DISTRIBUTIONINFO
-        run: echo $DISTRIBUTIONINFO
+        run: Write-Output $env:DISTRIBUTIONINFO
+        shell: pwsh

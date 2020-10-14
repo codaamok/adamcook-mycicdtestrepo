@@ -3,7 +3,7 @@ name: "02 - Multiple jobs"
 on:
   push:
     branches:
-      - master
+      - idonotexist
 
 jobs:
   job-1:
