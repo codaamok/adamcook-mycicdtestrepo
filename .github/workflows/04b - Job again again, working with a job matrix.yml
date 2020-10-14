@@ -4,7 +4,7 @@ name: "04b - Job again again, working with a job matrix"
 on:
   push:
     branches:
-      - master
+      - idonotexist
 
 jobs:
   job-1:
