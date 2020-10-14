@@ -113,7 +113,7 @@ jobs:
 
       - name: Extract archive, copy to shared folder and publish to internal PS repository
         run: |
-          $Artifact = Get-ChildItem -Path $env:downloadpath\*\ -Filter "*.zip" -ErrorAction "Stop"
+          $Artifact = Get-ChildItem -Path $env:downloadpath\ -Filter "*.zip" -ErrorAction "Stop"
           $ExtractedPath = "{0}\temp\{1}" -f $env:windir, $Artifact.BaseName
           Expand-Archive -Path $Artifact.FullName -DestinationPath $ExtractedPath -ErrorAction "Stop"
           Copy-Item -Path $ExtractedPath -Destination "\\sccm.acc.local\PowerShellModules" -Force -ErrorAction "Stop" 
