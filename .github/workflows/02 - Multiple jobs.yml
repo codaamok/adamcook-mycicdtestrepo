@@ -3,13 +3,13 @@ name: "02 - Multiple jobs"
 on:
   push:
     branches:
-      - idonotexist
+      - master
 
 jobs:
   job-1:
     runs-on: ubuntu-latest
     steps:
-      - name: Print datetime
+      - name: Print datetime (job 1)
         run: Get-Date
         shell: pwsh
 
@@ -17,6 +17,6 @@ jobs:
     runs-on: windows-latest
     needs: job-1
     steps:
-      - name: Print datetime
+      - name: Print datetime (job 2)
         run: Get-Date
         shell: pwsh
