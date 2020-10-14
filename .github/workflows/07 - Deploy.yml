@@ -119,8 +119,8 @@ jobs:
           $Artifact = Get-ChildItem -Path $env:downloadpath -Filter "*.zip" -ErrorAction "Stop"
           $ExtractedPath = "{0}\temp\{1}" -f $env:windir, $Artifact.BaseName
           Expand-Archive -Path $Artifact.FullName -DestinationPath $ExtractedPath -ErrorAction "Stop"
-          Copy-Item -Path $ExtractedPath -Destination "\\sccm.acc.local\PowerShellModules" -Force -ErrorAction "Stop" 
-          Publish-Module -Path $ExtractedPath\ -Force -ErrorAction "Stop"
+          Copy-Item -Path $ExtractedPath -Destination "\\sccm.acc.local\PowerShellModules" -Recurse -Force -ErrorAction "Stop" 
+          Publish-Module -Path $ExtractedPath\ -Repository "GENSRV-01" -Force -ErrorAction "Stop"
           Remove-Item $Artifact,$ExtractedPath -Force -ErrorAction "Stop"
         shell: powershell
         env:
