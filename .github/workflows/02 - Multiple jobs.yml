@@ -1,10 +1,9 @@
 name: "02 - Multiple jobs"
-# show parallelism as well as depends on
 
 on:
   push:
     branches:
-      - idonotexist
+      - master
 
 jobs:
   job-1:
