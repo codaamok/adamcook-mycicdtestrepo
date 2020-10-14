@@ -24,9 +24,3 @@ jobs:
     steps:
       - name: Hello world
         run: echo "Hello world"
-      
-      - name: Print variables
-        run: |
-          Write-Output ("IsWindows: {0}" -f $IsWindows)
-          Write-Output ("IsLinux: {0}" -f $IsLinux)
-        shell: pwsh

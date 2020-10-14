@@ -6,9 +6,6 @@ on:
     branches:
       - idonotexist
 
-env:
-  myworkflowvariable: "Workflow variable"
-
 jobs:
   job-1: 
     runs-on: ubuntu-latest
@@ -46,23 +43,4 @@ jobs:
 
       - name: Read DISTRIBUTIONINFO
         run: Write-Output $env:DISTRIBUTIONINFO
-        shell: pwsh
-
-  job-2:
-    runs-on: windows-latest
-    steps:
-      - name: Read my_own_variable
-        run: Write-Output $env:my_own_variable
-        shell: pwsh
-
-      - name: Read DISTRIBUTIONINFO
-        run: Write-Output $env:DISTRIBUTIONINFO
-        shell: pwsh
-
-      - name: Read myjobworkflowvariable
-        run: Write-Output $env:myjobworkflowvariable
-        shell: pwsh
-
-      - name: Read myworkflowvariable
-        run: Write-Output $env:myworkflowvariable
         shell: pwsh

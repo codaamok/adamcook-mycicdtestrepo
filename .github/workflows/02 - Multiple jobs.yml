@@ -15,7 +15,6 @@ jobs:
 
   job-2:
     runs-on: windows-latest
-    needs: job-1
     steps:
       - name: Print datetime (job 2)
         run: Get-Date
