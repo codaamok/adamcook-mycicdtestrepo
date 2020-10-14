@@ -23,5 +23,13 @@ jobs:
     # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idsteps
     steps:
       - name: Hello world
-        run: Write-Output "Hello world"
+        run: |
+          echo "Hello world"
+          ls
+      
+      - name: Print variables
+        run: |
+          Write-Output $env:ComputerName
+          Write-Output ("IsWindows: {0}" -f $IsWindows)
+          Write-Output ("IsLinux: {0} -f $IsLinux)
         shell: pwsh
