@@ -63,18 +63,13 @@ PowerShellVersion = '5.1'
 # TypesToProcess = @()
 
 # Format files (.ps1xml) to be loaded when importing this module
-FormatsToProcess = 'adamcook-mycicdtestrepo.Format.ps1xml'
+# FormatsToProcess = ''
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = 'Compare-DPContent', 'Compare-DPGroupContent', 'Export-DPContent', 
-               'Find-CMOBject', 'Get-DPContent', 'Get-DPDistributionStatus', 
-               'Get-DPGroupContent', 'Import-DPContent', 
-               'Invoke-DPContentLibraryCleanup', 'Remove-DPContent', 
-               'Remove-DPGroupContent', 'Set-DPAllowPrestagedContent', 
-               'Start-DPContentDistribution', 'Start-DPGroupContentDistribution'
+FunctionsToExport = ''
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()

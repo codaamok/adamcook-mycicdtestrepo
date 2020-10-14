@@ -1,4 +1,4 @@
-name: "04b - Jobs again again"
+name: "04b - Job again again, working with a job matrix"
 # strategy matrix jobs
 
 on:

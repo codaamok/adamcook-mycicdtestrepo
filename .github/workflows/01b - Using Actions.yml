@@ -6,7 +6,7 @@ on:
       - idonotexist
 
 jobs:
-  main:
+  job-1:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

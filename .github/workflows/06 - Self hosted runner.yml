@@ -1,4 +1,5 @@
 name: "06 - Self hosted runner"
+# https://docs.github.com/en/free-pro-team@latest/actions/hosting-your-own-runners/adding-self-hosted-runners
 
 on:
   push:
@@ -7,7 +8,18 @@ on:
 
 jobs:
   main:
-    runs-on: ubuntu-latest
+    runs-on: self-hoted
     steps:
       - name: Hello world
         run: echo "Hello world"
+
+      - name: List contents of C:\
+        run: Get-ChildItem -Path "C:\"
+
+      - name: Checkout repository
+        uses: actions/checkout@v2.3.1
+
+      - name: Copy everything to a shared folder on-prem
+        run: |
+          Copy-Item -Path .\ -Destination \\sccm\dummy -Recurse -Force 
+        shell: powershell

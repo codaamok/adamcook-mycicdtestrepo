@@ -1,14 +1,10 @@
-name: "04a - Jobs again"
-# Demonstrate can't share environment variables between jobs unless we define a workflow-wide env var
-# Demonstrate sharing data between jobs using artifacts: https://docs.github.com/en/free-pro-team@latest/actions/guides/storing-workflow-data-as-artifacts#passing-data-between-jobs-in-a-workflow
+name: "04a - Jobs again, working with artifacts"
+# https://docs.github.com/en/free-pro-team@latest/actions/guides/storing-workflow-data-as-artifacts#passing-data-between-jobs-in-a-workflow
 
 on:
   push:
     branches:
-      - master
-
-env:
-  WinAdmins: Rock
+      - idonotexist
 
 jobs:
   primary-job:

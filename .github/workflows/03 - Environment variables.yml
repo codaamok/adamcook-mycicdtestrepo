@@ -7,19 +7,16 @@ on:
       - idonotexist
 
 jobs:
-  main: 
+  job-1: 
     runs-on: ubuntu-latest 
-    env:
-      FIRST_NAME: Adam
-      LAST_NAME: Cook
     steps:
-      - name: Define and print variable x
+      - name: Define and print variable x (NOT an environment variable)
         run: |
           $x = "Hello world"
           Write-Output $x
         shell: pwsh
 
-      - name: Print variable x again
+      - name: Print variable x again (NOT an environment variable)
         run: Write-Output $x
         shell: pwsh
 
