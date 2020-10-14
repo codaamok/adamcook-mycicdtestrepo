@@ -78,8 +78,6 @@ jobs:
           name: ${{ env.GH_PROJECTNAME }}_${{ env.VersionToBuild }}
           path: release/${{ env.GH_PROJECTNAME }}_${{ env.VersionToBuild }}.zip
 
-      - name: Create text file containing name 
-
       - name: Copy CHANGELOG.md and module manifest to repository root directory
         run: |
           Copy-Item -Path (".\build\{0}\CHANGELOG.md" -f $env:GH_PROJECTNAME) -Destination . -Force
