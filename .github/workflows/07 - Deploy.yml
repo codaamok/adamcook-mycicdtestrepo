@@ -108,8 +108,8 @@ jobs:
         run: |
           $Artifact = Get-ChildItem -Filter "*.zip" -ErrorAction "Stop"
           $ExtractedPath = "{0}\{1}" -f $Artifact.DirectoryName, $Artifact.BaseName
-          Expand-Path -Path $Artifact.FullName -DestinationPath $ExtractedPath -ErrorAction "Stop"
-          Copy-Item -Path $ExtractedPath -Destination "\\sccm.acc.local\PowerShellModules"
-          Publish-Module -Path $ExtractedPath -ErrorAction "Stop" -Force
+          Expand-Archive -Path $Artifact.FullName -DestinationPath $ExtractedPath -ErrorAction "Stop"
+          Copy-Item -Path $ExtractedPath -Destination "\\sccm.acc.local\PowerShellModules" -Force -ErrorAction "Stop" 
+          Publish-Module -Path $ExtractedPath\*\ -Force -ErrorAction "Stop"
         shell: pwsh
         
