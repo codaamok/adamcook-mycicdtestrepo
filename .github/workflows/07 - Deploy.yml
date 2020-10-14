@@ -76,7 +76,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ env.GH_PROJECTNAME }}_${{ env.VersionToBuild }}
-          path: build\${{ env.GH_PROJECTNAME}}\
+          path: build/${{ env.GH_PROJECTNAME}}
 
       - name: Copy CHANGELOG.md and module manifest to repository root directory
         run: |
