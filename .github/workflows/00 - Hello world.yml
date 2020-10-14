@@ -25,11 +25,11 @@ jobs:
       - name: Hello world
         run: |
           echo "Hello world"
-          ls
+          ls -lash /
       
       - name: Print variables
         run: |
           Write-Output $env:ComputerName
           Write-Output ("IsWindows: {0}" -f $IsWindows)
-          Write-Output ("IsLinux: {0} -f $IsLinux)
+          Write-Output ("IsLinux: {0}" -f $IsLinux)
         shell: pwsh
