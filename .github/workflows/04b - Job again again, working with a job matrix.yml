@@ -4,10 +4,10 @@ name: "04b - Job again again, working with a job matrix"
 on:
   push:
     branches:
-      - idonotexist
+      - master
 
 jobs:
-  main:
+  job-1:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
