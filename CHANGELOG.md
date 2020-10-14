@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+
+## [1.24.20201014.0] - 2020-10-14
 ### Added
 - AGAIN :-) This is also something new
 
@@ -62,7 +64,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 - Birth of change log
 
-[Unreleased]: https://github.com/codaamok/adamcook-mycicdtestrepo/compare/1.23.20201014.0..HEAD
+[Unreleased]: https://github.com/codaamok/adamcook-mycicdtestrepo/compare/1.24.20201014.0..HEAD
+[1.24.20201014.0]: https://github.com/codaamok/adamcook-mycicdtestrepo/compare/1.23.20201014.0..1.24.20201014.0
 [1.23.20201014.0]: https://github.com/codaamok/adamcook-mycicdtestrepo/compare/1.22.20201014.0..1.23.20201014.0
 [1.22.20201014.0]: https://github.com/codaamok/adamcook-mycicdtestrepo/compare/1.21.20201014.0..1.22.20201014.0
 [1.21.20201014.0]: https://github.com/codaamok/adamcook-mycicdtestrepo/compare/1.20.20201014.0..1.21.20201014.0
