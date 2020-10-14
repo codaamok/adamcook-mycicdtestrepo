@@ -76,7 +76,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ env.GH_PROJECTNAME }}_${{ env.VersionToBuild }}
-          path: build/${{ env.GH_PROJECTNAME}}
+          path: release/${{ env.GH_PROJECTNAME }}_${{ env.VersionToBuild }}.zip
+
+      - name: Create text file containing name 
 
       - name: Copy CHANGELOG.md and module manifest to repository root directory
         run: |
@@ -103,17 +105,23 @@ jobs:
     steps:
       - name: Download release artifact
         uses: actions/download-artifact@v2
+        id: download
 
       - name: List directory
-        run: Get-ChildItem
+        run: Get-ChildItem -Path $env:downloadpath\*\
         shell: powershell
+        env:
+          downloadpath: ${{ steps.donwload.outputs.download-path }}
 
       - name: Extract archive, copy to shared folder and publish to internal PS repository
         run: |
-          $Artifact = Get-ChildItem -Filter "*.zip" -ErrorAction "Stop"
-          $ExtractedPath = "{0}\{1}" -f $Artifact.DirectoryName, $Artifact.BaseName
+          $Artifact = Get-ChildItem -Path $env:downloadpath\*\ -Filter "*.zip" -ErrorAction "Stop"
+          $ExtractedPath = "{0}\temp\{1}" -f $env:windir, $Artifact.BaseName
           Expand-Archive -Path $Artifact.FullName -DestinationPath $ExtractedPath -ErrorAction "Stop"
           Copy-Item -Path $ExtractedPath -Destination "\\sccm.acc.local\PowerShellModules" -Force -ErrorAction "Stop" 
-          Publish-Module -Path $ExtractedPath\*\ -Force -ErrorAction "Stop"
+          Publish-Module -Path $ExtractedPath\ -Force -ErrorAction "Stop"
+          Remove-Item $Artifact,$ExtractedPath -Force -ErrorAction "Stop"
         shell: powershell
+        env:
+          downloadpath: ${{ steps.donwload.outputs.download-path }}
         
