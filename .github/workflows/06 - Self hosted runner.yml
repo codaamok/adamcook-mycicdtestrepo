@@ -4,15 +4,12 @@ name: "06 - Self hosted runner"
 on:
   push:
     branches:
-      - idonotexist
+      - master
 
 jobs:
-  main:
-    runs-on: self-hoted
+  job-1:
+    runs-on: gensrv-01
     steps:
-      - name: Hello world
-        run: echo "Hello world"
-
       - name: List contents of C:\
         run: Get-ChildItem -Path "C:\"
 

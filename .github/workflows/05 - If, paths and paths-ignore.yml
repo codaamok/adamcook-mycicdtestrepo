@@ -3,11 +3,11 @@ name: "05 - If, paths and paths-ignore"
 on:
   push:
     branches:
-      - master
+      - idonotexist
     #paths-ignore:
     #  - '.github/workflows/*.yml'
-    paths:
-      - 'adamcook-mycicdtestrepo/Public/*.ps1'
+    #paths:
+    #  - 'adamcook-mycicdtestrepo/Public/*.ps1'
 
 jobs:
   main:
