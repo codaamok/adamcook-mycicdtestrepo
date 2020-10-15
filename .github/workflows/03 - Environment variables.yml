@@ -4,13 +4,16 @@ name: "03 - Environment variables"
 on:
   push:
     branches:
-      - idonotexist
+      - master
+
+env:
+  myworkflowvariable: "My workflow environment variable"
 
 jobs:
   job-1: 
     runs-on: ubuntu-latest
     env:
-      myjobworkflowvariable: "Job variable"
+      myjobworkflowvariable: "My job environment variable"
     steps:
       - name: Define and print variable x (NOT an environment variable)
         run: |
@@ -40,6 +43,17 @@ jobs:
           echo 'DISTRIBUTIONINFO<<XYZ' >> $GITHUB_ENV
           cat /etc/*lease >> $GITHUB_ENV
           echo 'XYZ' >> $GITHUB_ENV
+
+      - name: Read DISTRIBUTIONINFO
+        run: Write-Output $env:DISTRIBUTIONINFO
+        shell: pwsh
+
+  job-2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read my_own_variable
+        run: Write-Output $env:my_own_variable
+        shell: pwsh
 
       - name: Read DISTRIBUTIONINFO
         run: Write-Output $env:DISTRIBUTIONINFO
