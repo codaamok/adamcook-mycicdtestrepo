@@ -12,7 +12,7 @@
 RootModule = 'adamcook-mycicdtestrepo.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.30.20201015.0'
+ModuleVersion = '1.31.20201015.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -108,7 +108,8 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = 'Added
-- AGAIN :-) This is also something new'
+- WinAdmins is the best
+- '
 
         # Prerelease string of this module
         # Prerelease = ''
