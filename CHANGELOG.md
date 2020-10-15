@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 ### Added
-- AGAIN :-) This is also something new
+- WinAdmins is the best
   
 ## [1.30.20201015.0] - 2020-10-15
 ### Added
