@@ -3,7 +3,7 @@ name: "01 - Using Actions"
 on:
   push:
     branches:
-      - idonotexist
+      - master
 
 jobs:
   job-1:
@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2.3.3
 
-        # https://github.com/marketplace/actions/azure-blob-storage-upload
+      # https://github.com/marketplace/actions/azure-blob-storage-upload
       - name: Azure Blob Upload
         uses: bacongobbler/azure-blob-storage-upload@v1.1.1
         with:
