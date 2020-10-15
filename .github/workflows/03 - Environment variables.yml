@@ -13,7 +13,7 @@ jobs:
   job-1: 
     runs-on: ubuntu-latest
     env:
-      myjobworkflowvariable: "My job environment variable"
+      myjobvariable: "My job environment variable"
     steps:
       - name: Define and print variable x (NOT an environment variable)
         run: |
@@ -57,4 +57,12 @@ jobs:
 
       - name: Read DISTRIBUTIONINFO
         run: Write-Output $env:DISTRIBUTIONINFO
+        shell: pwsh
+
+      - name: Read myworkflowvariable
+        run: Write-Output $env:myworkflowvariable
+        shell: pwsh
+
+      - name: Read myjobvariable
+        run: Write-Output $env:myjobvariable
         shell: pwsh
