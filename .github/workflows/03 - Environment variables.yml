@@ -4,7 +4,7 @@ name: "03 - Environment variables"
 on:
   push:
     branches:
-      - master
+      - idonotexist
 
 env:
   myworkflowvariable: "My workflow environment variable"

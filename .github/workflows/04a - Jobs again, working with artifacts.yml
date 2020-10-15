@@ -4,7 +4,7 @@ name: "04a - Jobs again, working with artifacts"
 on:
   push:
     branches:
-      - idonotexist
+      - master
 
 jobs:
   job-1:
