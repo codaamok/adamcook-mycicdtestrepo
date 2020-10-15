@@ -3,7 +3,7 @@ name: "02 - Multiple jobs"
 on:
   push:
     branches:
-      - idonotexist
+      - master
 
 jobs:
   job-1:
@@ -15,6 +15,7 @@ jobs:
 
   job-2:
     runs-on: windows-latest
+    needs: job-1
     steps:
       - name: Print datetime (job 2)
         run: Get-Date
