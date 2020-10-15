@@ -6,7 +6,7 @@ name: "00 - Hello world"
 on:
   push:
     branches:
-      - idonotexist
+      - master
 
 # Define your job(s)
 # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobs
@@ -24,3 +24,11 @@ jobs:
     steps:
       - name: Hello world
         run: echo "Hello world"
+
+      - name: Another step
+        run: |
+          Write-Output "Hello world from PowerShell"
+          Write-Output "This is another line"
+          Write-Output ("Is Windows: {0}" -f $IsWindows)
+          Write-Output ("Is Linux: {0}" -f $IsLinux)
+        shell: pwsh
