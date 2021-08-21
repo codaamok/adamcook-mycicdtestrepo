@@ -12,7 +12,5 @@ jobs:
     if: "contains(github.event.head_commit.message, ':shipit:')"
     steps:
       - name: Print
-        run: Write-Output $env:hello
-        shell: pwsh
-        env:
-          hello: ${{ github.event.head_commit.message }}
+        run: |
+          echo "${{toJSON(github.event)}}"
