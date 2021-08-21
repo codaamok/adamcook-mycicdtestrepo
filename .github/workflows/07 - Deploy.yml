@@ -15,4 +15,4 @@ jobs:
         run: Write-Output $env:hello
         shell: pwsh
         env:
-          hello: ${{ github.event }}
+          hello: ${{ github.event.head_commit.message }}
