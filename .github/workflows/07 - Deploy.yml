@@ -11,6 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     if: "contains(github.event.head_commit.message, ':shipit:')"
     steps:
-      - name: Print commit message
-        run: Write-Output $env:github.event.head_commit.message
+      - name: Print
+        run: Write-Output $env:github.event
         shell: pwsh
