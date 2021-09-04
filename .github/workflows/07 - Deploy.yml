@@ -13,6 +13,6 @@ jobs:
     steps:
       - name: Print
         run: |
-          $github = ${{toJSON(github.event)}} | ConvertFrom-Json -Depth 10
+          $github = '${{toJSON(github.event)}}' | ConvertFrom-Json -Depth 10
           Write-Host $github.head_commit.message
         shell: pwsh
