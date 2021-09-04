@@ -13,4 +13,5 @@ jobs:
     steps:
       - name: Print
         run: |
-          echo "${{toJSON(github.event)}}"
+          Write-Host ${{toJSON(github.event)}}
+        shell: pwsh
