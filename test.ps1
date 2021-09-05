@@ -15,7 +15,7 @@ function New-BuildEnvironmentVariable {
         [Hashtable]$Variable,
 
         [Parameter(Mandatory)]
-        [ValidateSet("GitHubActions")]
+        [ValidateSet("GitHubActions", "Session")]
         [String[]]$Platform
     )
 
@@ -25,10 +25,15 @@ function New-BuildEnvironmentVariable {
                 Write-Output ("{0}={1}" -f $var.Key, $var.Value) | Add-Content -Path $env:GITHUB_ENV 
             }
         }
+        "Session" {
+            foreach ($var in $Variable.GetEnumerator()) {
+                Set-Item -Path env:$var.Key -Value $var.Value
+            }
+        }
     }
 }
 
-New-BuildEnvironmentVariable -Platform "GitHubActions" -Variable @{
+New-BuildEnvironmentVariable -Platform "GitHubActions","Session" -Variable @{
     MyTestVariable = "Hello world"
 }
 
