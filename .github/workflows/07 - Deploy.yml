@@ -22,5 +22,5 @@ jobs:
 
       - name: Access env var outside of script in next step
         run: |
-          Write-Host "Outside of script in different step: ${$env:MyTestVariable}"
+          Write-Host "Outside of script in different step: $env:MyTestVariable"
         shell: pwsh
