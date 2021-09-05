@@ -11,8 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     if: "contains(github.event.head_commit.message, ':shipit:')"
     steps:
-      - name: Print
+
+      - name: Checkout repository
+        uses: actions/checkout@v2.3.1
+
+      - name: Execute script
         run: |
-          $github = '${{github.event.head_commit.message}}'
-          Write-Host $github
+          pwsh ./test.ps1
+          echo Outside of script within same step: $MyTestVariable
+
+      - name: Access env var outside of script in next step
+        run: |
+          Write-Host "Outside of script in different step: ${$env:MyTestVariable}"
         shell: pwsh
