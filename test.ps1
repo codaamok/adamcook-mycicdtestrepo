@@ -32,4 +32,4 @@ New-BuildEnvironmentVariable -Platform "GitHubActions" -Variable @{
     MyTestVariable = "Hello world"
 }
 
-Write-Host "Within script: ${$env:MyTestVariable}"
+Write-Host "Within script: $env:MyTestVariable"
