@@ -24,10 +24,10 @@ jobs:
         run: echo "127.0.0.1 bullshit.abc" | sudo tee -a /etc/hosts
 
       - name: Generate Shlink API key
-        id: shlink_api_key_stdout
+        id: mystep
         run: echo "::set-output name=zing::$(docker exec shlink shlink api-key:generate --no-ansi)"
 
       - name: Print Shlink API key in another step
         run: echo $shlinkapikey
         env:
-          shlinkapikey: ${{ steps.shlink_api_key_stdout.outputs.zing }}
+          shlinkapikey: ${{ steps.mystep.outputs.zing }}
