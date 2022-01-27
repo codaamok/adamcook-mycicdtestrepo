@@ -3,7 +3,7 @@ name: "Testing 123"
 on: 
   push:
     branches:
-      - master
+      - idonotexist
 
 jobs:
   job-1:
