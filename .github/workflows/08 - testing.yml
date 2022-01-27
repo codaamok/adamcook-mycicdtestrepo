@@ -25,7 +25,7 @@ jobs:
 
       - name: Generate Shlink API key
         id: shlink_api_key_stdout
-        run: echo "::set-output name=zing::$(docker exec -it shlink shlink api-key:generate --no-ansi)""
+        run: echo "::set-output name=zing::$(docker exec -it shlink shlink api-key:generate --no-ansi)"
 
       - name: Print Shlink API key in another step
         run: echo $shlinkapikey
