@@ -29,5 +29,5 @@ jobs:
 
       - name: Print Shlink API key in another step
         run: echo $shlinkapikey
-        env:
+        with:
           shlinkapikey: steps.shlink_api_key_stdout.outputs.zing
