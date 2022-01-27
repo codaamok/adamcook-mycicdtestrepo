@@ -12,7 +12,8 @@ jobs:
     services:
       shlink:
         image: shlinkio/shlink
-        ports: 8080:8080
+        ports: 
+          - 8080:8080
         env:
           IS_HTTPS_ENABLED: false
           GEOLITE_LICENSE_KEY: ${{ secrets.key }}
