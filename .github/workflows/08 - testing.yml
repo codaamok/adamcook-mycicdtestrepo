@@ -28,4 +28,6 @@ jobs:
         run: echo "::set-output name=zing::$(docker exec -t shlink shlink api-key:generate --no-ansi)"
 
       - name: Print Shlink API key in another step
-        run: echo ${{ steps.mystep.outputs.zing }}
+        run: echo $abc
+          env:
+            abc: ${{ steps.mystep.outputs.zing }}
