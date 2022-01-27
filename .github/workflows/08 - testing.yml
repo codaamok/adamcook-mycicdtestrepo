@@ -29,5 +29,5 @@ jobs:
 
       - name: Print Shlink API key in another step
         run: echo $abc
-          env:
-            abc: ${{ steps.mystep.outputs.zing }}
+        env:
+          abc: ${{ steps.mystep.outputs.zing }}
