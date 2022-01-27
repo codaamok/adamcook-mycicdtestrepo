@@ -1,4 +1,4 @@
-name: "Testing 123"
+name: "Environment variables and step outputs"
 
 on: 
   push:
