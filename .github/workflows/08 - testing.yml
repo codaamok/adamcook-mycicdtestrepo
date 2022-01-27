@@ -24,8 +24,7 @@ jobs:
         run: echo "127.0.0.1 bullshit.abc" | sudo tee -a /etc/hosts
 
       - name: Generate Shlink API key
-        id: mystep
-        run: echo "zing=$(docker exec -t shlink shlink api-key:generate --no-ansi)" >> $GITHUB_ENV
+        run: echo "zing=$(docker exec -t shlink shlink api-key:generate --no-ansi | head -2 | tail -1)" >> $GITHUB_ENV
 
       - name: Print Shlink API key in another step
         run: echo "${{ env.zing }}"
