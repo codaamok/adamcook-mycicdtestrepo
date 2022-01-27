@@ -18,8 +18,7 @@ jobs:
           IS_HTTPS_ENABLED: false
           GEOLITE_LICENSE_KEY: ${{ secrets.key }}
           DEFAULT_DOMAIN: bullshit.abc
-        options:
-          name: shlink
+        options: --name shlink
     steps:
       - name: Bastardise DNS
         run: echo "127.0.0.1 bullshit.abc" | sudo tee -a /etc/hosts
