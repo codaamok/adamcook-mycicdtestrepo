@@ -14,3 +14,5 @@ jobs:
     steps:
       - name: View GitHub context
         run: echo "$GITHUB_CONTEXT"
+        env: 
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
