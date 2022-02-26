@@ -12,7 +12,7 @@
 RootModule = 'adamcook-mycicdtestrepo.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.31.20201015.0'
+ModuleVersion = '1.33.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -87,7 +87,7 @@ AliasesToExport = @()
 # ModuleList = @()
 
 # List of all files packaged with this module
-# FileList = @()
+FileList = @('.gitignore')
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
