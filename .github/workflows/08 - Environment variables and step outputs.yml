@@ -3,7 +3,7 @@ name: "Environment variables and step outputs"
 on: 
   push:
     branches:
-      - master
+      - idonotexist
 
 jobs:
   job-1:

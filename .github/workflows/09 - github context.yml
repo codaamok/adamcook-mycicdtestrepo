@@ -1,0 +1,16 @@
+name: "Environment variables and step outputs"
+
+on: 
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: */2 * * * *
+
+jobs:
+  job-1:
+    name: Testing123
+    runs-on: ubuntu-latest
+    steps:
+      - name: View GitHub context
+        run: echo "$GITHUB_CONTEXT"
